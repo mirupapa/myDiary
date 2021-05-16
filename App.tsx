@@ -13,6 +13,7 @@ import { CommonContext, CommonProvider } from './src/context/commonContext'
 import Menu from './src/components/Menu'
 import Top from './src/screens/Top/Top'
 import Logo from './src/components/Logo'
+import Search from './src/components/Search'
 
 export type RootStackParamList = {
   Top: undefined
@@ -44,6 +45,7 @@ const App: React.VFC = () => {
               name="Diary"
               component={Diary}
               options={{
+                headerLeft: () => <Search />,
                 headerRight: () => <Menu />,
                 headerTitle: () => <Logo />,
               }}

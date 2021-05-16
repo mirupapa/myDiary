@@ -17,7 +17,7 @@ const Menu = () => {
       backgroundColor: 'grey',
       opacity: 0.5,
     },
-    menuArea: { flex: 0.5, backgroundColor: 'grey', opacity: 0.9 },
+    menuArea: { flex: 1, backgroundColor: 'grey', opacity: 0.9 },
     closeButton: {
       height: '10%',
       flexDirection: 'row',
@@ -30,8 +30,8 @@ const Menu = () => {
       height: '10%',
       flexDirection: 'row',
       alignItems: 'center',
-      justifyContent: 'flex-end',
-      paddingRight: 20,
+      justifyContent: 'flex-start',
+      paddingLeft: 20,
       backgroundColor: '#555',
       borderBottomWidth: 1,
       borderBottomColor: '#ccc',
@@ -55,7 +55,7 @@ const Menu = () => {
       {!state.isModalView && (
         <Modal animationType="fade" transparent={true} visible={state.isMenuView}>
           <View style={styles.modalView}>
-            <View style={styles.cancelArea} onTouchStart={() => handlers.changeMenuView(false)} />
+            {/* <View style={styles.cancelArea} onTouchStart={() => handlers.changeMenuView(false)} /> */}
             <View style={styles.menuArea}>
               <View onTouchStart={() => handlers.changeMenuView(false)} style={styles.closeButton}>
                 <Icon color="white" name="close" size={25} />

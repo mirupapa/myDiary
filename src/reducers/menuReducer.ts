@@ -1,5 +1,3 @@
-import { BooleanLocale } from 'yup/lib/locale'
-
 export type State = {
   isMenuView: boolean
   isModalView: boolean

@@ -4,6 +4,7 @@ import { StackNavigationProp } from '@react-navigation/stack'
 import { styles } from '../../styles/common'
 import { RootStackParamList } from '../../../App'
 import Button from '../../components/Buttons/Button'
+import BannerAd from '../../components/BannerAd'
 
 export type ScreenNavigationProp = StackNavigationProp<RootStackParamList, 'Top'>
 
@@ -29,6 +30,7 @@ const Login: React.FC<Props> = ({ navigation }) => {
         colorType="base_blue"
         iconType="user-plus"
       />
+      <BannerAd />
     </View>
   )
 }

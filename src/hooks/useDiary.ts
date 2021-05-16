@@ -4,6 +4,7 @@ import firebase from 'firebase/app'
 import 'firebase/firestore'
 import { useEffect, useReducer } from 'react'
 import { Alert } from 'react-native'
+import { CommonContext } from '../context/commonContext'
 import { initialState, reducer, State } from '../reducers/diaryReducer'
 import { DiaryScreenNavigationProp } from '../screens/Diary'
 import { DiaryType, isDiaries, isDiary } from '../types/diary'
@@ -23,6 +24,7 @@ type navigationType = DiaryScreenNavigationProp
 
 const useDiary = (navigation: navigationType): UseType => {
   const [state, dispatch] = useReducer(reducer, initialState)
+  const { state: commonState } = CommonContext()
   const isFocused = useIsFocused()
   const dbh = firebase.firestore()
 
@@ -76,15 +78,18 @@ const useDiary = (navigation: navigationType): UseType => {
       }
     })
     console.log(uid)
+    const searchWord = commonState.searchWord
     const result = await dbh.collection('diary').where('uid', '==', uid).orderBy('date').get()
     result.forEach((item) => {
-      const tmp = {
-        id: item.id,
-        title: item.data().title,
-        text: item.data().text,
-        date: dayjs(item.data().date.toDate()).format('YYYY/MM/DD'),
+      if (searchWord === '' || (typeof item.data().title === 'string' && item.data().title.indexOf(searchWord) > -1)) {
+        const tmp = {
+          id: item.id,
+          title: item.data().title,
+          text: item.data().text,
+          date: dayjs(item.data().date.toDate()).format('YYYY/MM/DD'),
+        }
+        _diaries.push(tmp)
       }
-      _diaries.push(tmp)
     })
     console.log(_diaries.length)
     if (isDiaries(_diaries)) {
@@ -105,7 +110,7 @@ const useDiary = (navigation: navigationType): UseType => {
       isMounted = false
     }
     // isFocused
-  }, [isFocused])
+  }, [isFocused, commonState.searchWord])
 
   return {
     state,

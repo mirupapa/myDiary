@@ -6,6 +6,7 @@ import { Icon } from 'react-native-elements'
 import { RootStackParamList } from '../../../App'
 import useDiary from '../../hooks/useDiary'
 import QuestionModal from '../../components/Modal/QuestionModal'
+import BannerAd from '../../components/BannerAd'
 
 export type DiaryScreenNavigationProp = StackNavigationProp<RootStackParamList, 'Diary'>
 
@@ -34,7 +35,7 @@ const Diary: React.FC<Props> = ({ navigation }) => {
       width: 100,
       padding: 0,
       position: 'absolute',
-      bottom: 0,
+      bottom: 30,
       right: 0,
     },
     row: {
@@ -117,6 +118,7 @@ const Diary: React.FC<Props> = ({ navigation }) => {
         onClose={handlers.changeModalView}
         message="削除してよろしいですか？"
       />
+      <BannerAd />
     </View>
   )
 }
