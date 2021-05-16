@@ -8,6 +8,7 @@ import useLogin from '../../hooks/useLogin'
 import Spinner from '../../components/Spinner'
 import Input from '../../components/Inputs/Input'
 import Button from '../../components/Buttons/Button'
+import BannerAd from '../../components/BannerAd'
 
 export type SignUpScreenNavigationProp = StackNavigationProp<RootStackParamList, 'SignUp'>
 
@@ -35,6 +36,7 @@ const Login: React.FC<Props> = ({ navigation }) => {
         colorType="base_blue"
         isDisabled={state.isDisabled}
       />
+      <BannerAd />
       <Spinner />
     </View>
   )

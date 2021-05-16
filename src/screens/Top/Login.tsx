@@ -8,6 +8,7 @@ import { styles } from '../../styles/common'
 import Input from '../../components/Inputs/Input'
 import Button from '../../components/Buttons/Button'
 import Spinner from '../../components/Spinner'
+import BannerAd from '../../components/BannerAd'
 
 export type LoginScreenNavigationProp = StackNavigationProp<RootStackParamList, 'Login'>
 
@@ -42,6 +43,7 @@ const Login: React.FC<Props> = ({ navigation }) => {
         colorType="base_red"
         isDisabled={state.isDisabled}
       />
+      <BannerAd />
       <Spinner />
     </View>
   )

@@ -7,6 +7,7 @@ import InputCalendar from '../../components/Inputs/InputCalendar'
 import Input from '../../components/Inputs/Input'
 import Button from '../../components/Buttons/Button'
 import useEdit from '../../hooks/useEdit'
+import BannerAd from '../../components/BannerAd'
 
 export type EditScreenNavigationProp = StackNavigationProp<RootStackParamList, 'Edit'>
 
@@ -32,28 +33,38 @@ const Edit: React.FC<Props> = ({ route, navigation }) => {
   })
 
   return (
-    <TouchableWithoutFeedback onPress={Keyboard.dismiss} accessible={false}>
-      <View style={styles.whitePaper}>
-        <StatusBar style="auto" />
-        <InputCalendar value={state.date} onChange={handlers.onChangeDate} />
-        <Input
-          label="TITLE"
-          value={state.title}
-          errMessage={state.err_title}
-          onChange={handlers.onChangeTitle}
-          width="60%"
-        />
-        <Input label="TEXT" value={state.text} onChange={handlers.onChangeText} isMultiline height="60%" width="60%" />
-        <View style={styles.buttonContainer}>
-          <Button
-            label="SAVE"
-            onPress={() => handlers.onClickEdit(route.params.diary)}
-            colorType="base_green"
-            isDisabled={state.isDisabled}
+    <View style={styles.whitePaper}>
+      <TouchableWithoutFeedback onPress={Keyboard.dismiss} accessible={false}>
+        <View>
+          <StatusBar style="auto" />
+          <InputCalendar value={state.date} onChange={handlers.onChangeDate} />
+          <Input
+            label="TITLE"
+            value={state.title}
+            errMessage={state.err_title}
+            onChange={handlers.onChangeTitle}
+            width="60%"
           />
+          <Input
+            label="TEXT"
+            value={state.text}
+            onChange={handlers.onChangeText}
+            isMultiline
+            height="60%"
+            width="60%"
+          />
+          <View style={styles.buttonContainer}>
+            <Button
+              label="SAVE"
+              onPress={() => handlers.onClickEdit(route.params.diary)}
+              colorType="base_green"
+              isDisabled={state.isDisabled}
+            />
+          </View>
         </View>
-      </View>
-    </TouchableWithoutFeedback>
+      </TouchableWithoutFeedback>
+      <BannerAd />
+    </View>
   )
 }
 
