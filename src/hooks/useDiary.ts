@@ -6,13 +6,14 @@ import { useEffect, useReducer } from 'react'
 import { Alert } from 'react-native'
 import { CommonContext } from '../context/commonContext'
 import { initialState, reducer, State } from '../reducers/diaryReducer'
-import { DiaryScreenNavigationProp } from '../screens/Diary'
+import { DiaryScreenNavigationProp } from '../screens/Diary/Index'
 import { DiaryType, isDiaries, isDiary } from '../types/diary'
 
 export type HandlersType = {
   onClickDelete: () => void
   changeModalView: (value: boolean) => void
   setTargetDiary: (value: DiaryType) => void
+  loadList: (limit: number) => void
 }
 
 export type UseType = {
@@ -24,7 +25,7 @@ type navigationType = DiaryScreenNavigationProp
 
 const useDiary = (navigation: navigationType): UseType => {
   const [state, dispatch] = useReducer(reducer, initialState)
-  const { state: commonState } = CommonContext()
+  const { state: commonState, dispatch: commonDispatch } = CommonContext()
   const isFocused = useIsFocused()
   const dbh = firebase.firestore()
 
@@ -66,51 +67,60 @@ const useDiary = (navigation: navigationType): UseType => {
     }
   }
 
-  const loadList = async () => {
-    console.log('loadList')
-    let _diaries: unknown[] = []
-    let uid = ''
-    await firebase.auth().onAuthStateChanged((user) => {
-      if (user) {
-        uid = user.uid
-      } else {
-        navigation.navigate('Login')
-      }
-    })
-    console.log(uid)
-    const searchWord = commonState.searchWord
-    const result = await dbh.collection('diary').where('uid', '==', uid).orderBy('date').get()
-    result.forEach((item) => {
-      if (searchWord === '' || (typeof item.data().title === 'string' && item.data().title.indexOf(searchWord) > -1)) {
-        const tmp = {
-          id: item.id,
-          title: item.data().title,
-          text: item.data().text,
-          date: dayjs(item.data().date.toDate()).format('YYYY/MM/DD'),
+  const loadList = async (limit = 20) => {
+    try {
+      commonDispatch({ type: 'UPDATE_SPINNER_VIEW', payload: true })
+      let _diaries: unknown[] = []
+      let uid = ''
+      await firebase.auth().onAuthStateChanged((user) => {
+        if (user) {
+          uid = user.uid
+        } else {
+          navigation.navigate('Login')
         }
-        _diaries.push(tmp)
+      })
+      const searchWord = commonState.searchWord
+      const result = await dbh.collection('diary').where('uid', '==', uid).orderBy('date', 'desc').limit(limit).get()
+      result.forEach((item) => {
+        if (
+          searchWord === '' ||
+          (typeof item.data().title === 'string' && item.data().title.indexOf(searchWord) > -1)
+        ) {
+          const tmp = {
+            id: item.id,
+            title: item.data().title,
+            text: item.data().text,
+            date: dayjs(item.data().date.toDate()).format('YYYY/MM/DD'),
+          }
+          _diaries.push(tmp)
+        }
+      })
+      if (isDiaries(_diaries)) {
+        dispatch({ type: 'SET_DIARIES', payload: _diaries })
       }
-    })
-    console.log(_diaries.length)
-    if (isDiaries(_diaries)) {
-      dispatch({ type: 'SET_DIARIES', payload: _diaries })
+      console.log('_diaries:', _diaries.length)
+    } catch (err) {
+      console.log(err)
+    } finally {
+      commonDispatch({ type: 'UPDATE_SPINNER_VIEW', payload: false })
     }
   }
 
+  let isMounted = true
+
   useEffect(() => {
-    console.log('useDiary:', isFocused)
-    let isMounted = true
+    console.log('useDiary:', isFocused, 'isMounted:', isMounted)
     if (isMounted && isFocused) {
       console.log('isMounted:', isMounted)
       ;(async () => {
-        loadList()
+        loadList(state.diaries.length > 0 ? state.diaries.length : 20)
       })()
     }
     return () => {
       isMounted = false
     }
     // isFocused
-  }, [isFocused, commonState.searchWord])
+  }, [commonState.searchWord])
 
   return {
     state,
@@ -118,6 +128,7 @@ const useDiary = (navigation: navigationType): UseType => {
       onClickDelete,
       changeModalView,
       setTargetDiary,
+      loadList,
     },
   }
 }

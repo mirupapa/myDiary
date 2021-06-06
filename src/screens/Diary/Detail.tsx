@@ -1,38 +1,33 @@
-import { StatusBar } from 'expo-status-bar'
+import { StackNavigationProp } from '@react-navigation/stack'
+import { RootStackParamList } from 'App'
 import React from 'react'
-import { View, StyleSheet } from 'react-native'
-import BannerAd from '../../components/BannerAd'
-import Input from '../../components/Inputs/Input'
-import InputCalendar from '../../components/Inputs/InputCalendar'
+import { StyleSheet } from 'react-native'
+import useDetail from '../../hooks/useDetail'
+import Editor from '../../components/Editor'
+
+export type NavigationProp = StackNavigationProp<RootStackParamList, 'Detail'>
 
 type Props = {
   route: any
+  navigation: NavigationProp
 }
 
-const Detail: React.FC<Props> = ({ route }) => {
+const Detail: React.FC<Props> = ({ route, navigation }) => {
   const { diary } = route.params
-
-  const styles = StyleSheet.create({
-    whitePaper: {
-      backgroundColor: '#fff',
-      height: '100%',
-      paddingTop: 10,
-      flex: 1,
-    },
-    buttonContainer: {
-      flexDirection: 'row',
-      justifyContent: 'center',
-    },
-  })
+  const { state, handlers } = useDetail(diary, navigation)
 
   return (
-    <View style={styles.whitePaper}>
-      <StatusBar style="auto" />
-      <InputCalendar value={diary.date} readOnly />
-      <Input label="TITLE" value={diary.title} errMessage={diary.err_title} width="60%" readOnly />
-      <Input label="TEXT" value={diary.text} isMultiline height="60%" width="60%" readOnly />
-      <BannerAd />
-    </View>
+    <Editor
+      date={diary.date}
+      title={diary.title}
+      err_title={diary.err_title}
+      text={diary.text}
+      isReadOnly
+      isModalView={state.isModalView}
+      onClickViewEdit={handlers.onClickViewEdit}
+      onClickDelete={handlers.onClickDelete}
+      changeModalView={(value: boolean) => handlers.changeModalView(value)}
+    />
   )
 }
 

@@ -1,6 +1,5 @@
 import React from 'react'
 import { View, Text, TextInput, StyleSheet } from 'react-native'
-import Icon from 'react-native-vector-icons/FontAwesome'
 
 type Props = {
   label: string
@@ -13,6 +12,7 @@ type Props = {
   onChange?: (text: string) => void
   onSubmit?: () => void
   readOnly?: boolean
+  isFlex?: boolean
 }
 
 const Input: React.FC<Props> = ({
@@ -21,43 +21,45 @@ const Input: React.FC<Props> = ({
   errMessage = '',
   isPassword = false,
   isMultiline = false,
-  width,
+  width = undefined,
   height,
   onChange = () => undefined,
   onSubmit = () => undefined,
   readOnly = false,
+  isFlex,
 }) => {
   const styles = StyleSheet.create({
-    view: {
-      flexDirection: 'row',
-      marginBottom: 30,
-      height: height === undefined ? 40 : height,
+    container: {
       position: 'relative',
     },
-    text: {
-      width: 100,
-      textAlign: 'right',
-      fontSize: 24,
+    topLabel: {
+      textAlign: 'left',
+      fontSize: 18,
       lineHeight: 40,
-      marginRight: 10,
+      marginLeft: 5,
     },
     textInput: {
-      width: width === undefined ? 250 : width,
-      backgroundColor: errMessage !== '' ? 'pink' : readOnly ? '#ddd' : '#ffd9b9',
+      width: width || '100%',
+      backgroundColor: errMessage !== '' ? 'pink' : readOnly ? '#eeeeee' : '#ffd9b9',
       borderRadius: 5,
-      paddingHorizontal: 10,
+      paddingHorizontal: 5,
+      height: height ? height : 40,
+      flex: isFlex ? 1 : 0,
     },
     errText: {
       position: 'absolute',
-      left: 120,
-      top: 40,
+      bottom: 0,
+      left: 5,
       color: 'red',
+    },
+    inputCalendarText: {
+      lineHeight: 40,
     },
   })
 
   return (
-    <View style={styles.view}>
-      <Text style={styles.text}>{label}</Text>
+    <View style={styles.container}>
+      <Text style={styles.topLabel}>{label}</Text>
       <TextInput
         style={styles.textInput}
         onChange={(event) => onChange(event.nativeEvent.text)}
