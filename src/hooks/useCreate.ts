@@ -48,14 +48,12 @@ const useCreate = (navigation: navigationType): UseType => {
   }
 
   const onClickCreate = async () => {
-    console.log('create:', isFocused)
     try {
       firebase.auth().onAuthStateChanged(async (user) => {
         if (user && isFocused) {
           var uid = user.uid
           const id = dayjs().format('YYMMDDHHmmss') + uid.substring(0, 4)
           const date = state.date.replaceAll('-', '/') + ' 00:00:00'
-          console.log('date:', date)
           await dbh
             .collection('diary')
             .doc(id)

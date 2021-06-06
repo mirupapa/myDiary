@@ -1,7 +1,7 @@
 import React from 'react'
 import { NavigationContainer } from '@react-navigation/native'
 import { createStackNavigator } from '@react-navigation/stack'
-import Diary from './src/screens/Diary'
+import Diary from './src/screens/Diary/Index'
 import DiaryCreate from './src/screens/Diary/Create'
 import DiaryDetail from './src/screens/Diary/Detail'
 import DiaryEdit from './src/screens/Diary/Edit'

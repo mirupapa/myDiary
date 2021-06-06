@@ -3,7 +3,7 @@ import { View, Text, StyleSheet } from 'react-native'
 import Icon from 'react-native-vector-icons/FontAwesome'
 
 type Props = {
-  onPress: () => void
+  onPress?: () => void
   label: string
   colorType: 'base_red' | 'base_blue' | 'base_green'
   iconType?: string | undefined

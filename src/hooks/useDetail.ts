@@ -1,55 +1,70 @@
-import { useIsFocused } from '@react-navigation/native'
 import 'firebase/firestore'
-import { useEffect, useReducer } from 'react'
+import firebase from 'firebase/app'
+import { useReducer } from 'react'
+import { NavigationProp } from '../screens/Diary/Detail'
 import { initialState, reducer, State } from '../reducers/diaryReducer'
 import { DiaryType, isDiary } from '../types/diary'
+import { Alert } from 'react-native'
 
 export type HandlersType = {
   onClickDelete: () => void
-  onClickCreate: () => void
-  onClickEdit: (item: DiaryType) => void
-  onChangeText: (value: string) => void
-  onChangeTitle: (value: string) => void
-  onChangeDate: (value: string) => void
   changeModalView: (value: boolean) => void
-  setTargetDiary: (value: DiaryType) => void
+  onClickViewEdit: () => void
 }
 
 export type Type = {
   state: State
+  handlers: HandlersType
 }
 
-const useDetail = (diary: DiaryType): Type => {
+const useDetail = (diary: DiaryType, navigation: NavigationProp): Type => {
   const [state, dispatch] = useReducer(reducer, initialState)
-  const isFocused = useIsFocused()
+  const dbh = firebase.firestore()
 
-  useEffect(() => {
-    console.log('useDetail:', isFocused)
-    let isMounted = true
-    if (isMounted) {
-      console.log('isMounted:', isMounted)
-      if (isDiary(diary)) {
-        dispatch({
-          type: 'UPDATE_TITLE',
-          payload: diary.title,
-        })
-        dispatch({
-          type: 'UPDATE_TEXT',
-          payload: diary.text,
-        })
-        dispatch({
-          type: 'UPDATE_DATE',
-          payload: diary.date,
-        })
-      }
+  const changeModalView = (value: boolean) => {
+    dispatch({
+      type: 'UPDATE_IS_MODAL_VIEW',
+      payload: value,
+    })
+  }
+
+  const onClickViewEdit = () => {
+    navigation.navigate('Edit', { diary })
+  }
+
+  const onClickDelete = async () => {
+    console.log('delete')
+    console.log('test2', diary.id)
+    try {
+      await firebase.auth().onAuthStateChanged((user) => {
+        if (user && diary.id) {
+          dbh
+            .collection('diary')
+            .doc(diary.id)
+            .delete()
+            .then(() => {
+              changeModalView(false)
+              console.log('test2')
+              navigation.navigate('Diary')
+            })
+        } else {
+          Alert.alert('Auth Error')
+          navigation.navigate('Login')
+        }
+      })
+    } catch (err) {
+      Alert.alert('System Error')
+      navigation.navigate('Login')
     }
-    return () => {
-      isMounted = false
-    }
-  }, [])
+  }
 
   return {
     state,
+    handlers: {
+      onClickViewEdit,
+      onClickDelete,
+      changeModalView,
+    },
   }
 }
 

@@ -22,20 +22,29 @@ const Login: React.FC<Props> = ({ navigation }) => {
   return (
     <View style={styles.container}>
       <StatusBar style="auto" />
-      <Input label="Email" value={state.email} onChange={handlers.onChangeEmail} onSubmit={handlers.onClickLogin} />
       <Input
+        width={200}
+        label="Email"
+        value={state.email}
+        onChange={handlers.onChangeEmail}
+        onSubmit={handlers.onClickLogin}
+      />
+      <Input
+        width={200}
         label="Password"
         value={state.password}
         onChange={handlers.onChangePassword}
         onSubmit={handlers.onClickLogin}
         isPassword
       />
-      <Button
-        onPress={() => handlers.onClickSignUp()}
-        label="Sign Up"
-        colorType="base_blue"
-        isDisabled={state.isDisabled}
-      />
+      <View style={{ marginTop: 20 }}>
+        <Button
+          onPress={() => handlers.onClickSignUp()}
+          label="Sign Up"
+          colorType="base_blue"
+          isDisabled={state.isDisabled}
+        />
+      </View>
       <BannerAd />
       <Spinner />
     </View>

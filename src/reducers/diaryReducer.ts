@@ -14,14 +14,6 @@ export type State = {
   isDisabled: boolean
 }
 
-export type Action =
-  | { type: 'SET_DIARIES'; payload: DiaryType[] }
-  | { type: 'UPDATE_IS_MODAL_VIEW'; payload: boolean }
-  | { type: 'SET_TARGET_DIARY'; payload: DiaryType }
-  | { type: 'UPDATE_TITLE'; payload: string }
-  | { type: 'UPDATE_TEXT'; payload: string }
-  | { type: 'UPDATE_DATE'; payload: string }
-
 export const initialState: State = {
   diaries: [],
   isModalView: false,
@@ -37,6 +29,14 @@ export const initialState: State = {
   err_title: '',
   isDisabled: true,
 }
+
+export type Action =
+  | { type: 'SET_DIARIES'; payload: DiaryType[] }
+  | { type: 'UPDATE_IS_MODAL_VIEW'; payload: boolean }
+  | { type: 'SET_TARGET_DIARY'; payload: DiaryType }
+  | { type: 'UPDATE_TITLE'; payload: string }
+  | { type: 'UPDATE_TEXT'; payload: string }
+  | { type: 'UPDATE_DATE'; payload: string }
 
 export const reducer = (state: State, action: Action): State => {
   switch (action.type) {

@@ -67,6 +67,7 @@ const Search = () => {
                       height: 30,
                       backgroundColor: 'white',
                       marginRight: 10,
+
                       paddingLeft: 10,
                     }}
                     onChange={(event) => setWord(event.nativeEvent.text)}
@@ -78,6 +79,16 @@ const Search = () => {
                     color="white"
                     style={{ paddingTop: 5 }}
                     onPress={() => onClickSearch(word)}
+                    type="font-awesome-5"
+                  />
+                  <Icon
+                    name="times"
+                    color="white"
+                    style={{ marginLeft: 10, paddingTop: 5 }}
+                    onPress={() => {
+                      setWord('')
+                      onClickSearch('')
+                    }}
                     type="font-awesome-5"
                   />
                 </View>

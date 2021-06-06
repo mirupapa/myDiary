@@ -1,7 +1,8 @@
-import React, { useState } from 'react'
+import React, { LegacyRef, useRef, useState } from 'react'
 import { Text, View, StyleSheet, Modal } from 'react-native'
 import { Calendar } from 'react-native-calendars'
 import { Icon } from 'react-native-elements'
+import Overlay from 'react-native-modal-overlay'
 
 type Props = {
   label?: string
@@ -20,56 +21,56 @@ const InputCalendar: React.FC<Props> = ({
 }) => {
   const [isView, setIsView] = useState(false)
   const styles = StyleSheet.create({
-    view: {
-      flexDirection: 'row',
-      marginBottom: 30,
-      height: 40,
+    container: {
       position: 'relative',
     },
-    text: {
-      width: 100,
-      textAlign: 'right',
-      fontSize: 24,
+    topLabel: {
+      textAlign: 'left',
+      fontSize: 18,
       lineHeight: 40,
-      marginRight: 10,
+      marginLeft: 5,
     },
-    calendarView: {
+    inputCalendarView: {
       width: 150,
-      backgroundColor: errMessage !== '' ? 'pink' : readOnly ? '#ddd' : '#ffd9b9',
+      backgroundColor: errMessage !== '' ? 'pink' : readOnly ? '#eeeeee' : '#ffd9b9',
       borderRadius: 5,
-      paddingHorizontal: 10,
+      paddingHorizontal: 5,
+      flexDirection: 'row',
+      justifyContent: 'space-between',
     },
-    calendarText: {
+    inputCalendarText: {
       lineHeight: 40,
+    },
+    calendarIcon: {
+      paddingTop: 7,
     },
     errText: {
       position: 'absolute',
-      left: 120,
-      top: 40,
+      top: 80,
+      left: 5,
       color: 'red',
     },
-    modalView: {
-      width: '100%',
-      height: '100%',
-      flexDirection: 'row',
+    overlayContainer: {
+      backgroundColor: 'rgba(0,0,0,0.5)',
+      flex: 1,
       justifyContent: 'center',
       alignItems: 'center',
     },
-    mesh: {
-      position: 'absolute',
-      top: 0,
-      left: 0,
-      width: '100%',
-      height: '100%',
-      backgroundColor: 'black',
-      opacity: 0.5,
-    },
-    calendarContainer: {
-      backgroundColor: 'white',
-      padding: '5%',
+    overlayChildren: {
+      padding: 10,
+      width: '80%',
       borderRadius: 5,
     },
-    title: {
+    modalCalendarContainer: {
+      backgroundColor: 'white',
+      width: '100%',
+      paddingBottom: 10,
+      borderRadius: 5,
+    },
+    modalCalendar: {
+      zIndex: 1,
+    },
+    modalCalenderTitle: {
       textAlign: 'center',
     },
     arrow: {
@@ -77,38 +78,41 @@ const InputCalendar: React.FC<Props> = ({
     },
   })
   return (
-    <View style={styles.view}>
-      <Text style={styles.text}>{label}</Text>
-      <View style={styles.calendarView} onTouchStart={() => !readOnly && setIsView(true)}>
-        <Text style={styles.calendarText}>{value.replaceAll('-', '/')}</Text>
+    <View style={styles.container}>
+      <Text style={styles.topLabel}>{label}</Text>
+      <View style={styles.inputCalendarView} onTouchStart={() => !readOnly && setIsView(true)}>
+        <Text style={styles.inputCalendarText}>{value.replaceAll('-', '/')}</Text>
+        <Icon name="calendar-day" type="font-awesome-5" style={styles.calendarIcon} />
       </View>
       <Text style={styles.errText}>{errMessage}</Text>
-      <Modal animationType="fade" transparent={true} visible={isView} style={{ position: 'relative' }}>
-        <View style={styles.mesh} onTouchStart={() => setIsView(false)} />
-        <View style={styles.modalView}>
-          <View style={styles.calendarContainer}>
-            <Text style={styles.title}>Please Select Day</Text>
-            <Calendar
-              style={{ zIndex: 1 }}
-              current={value ? new Date(value) : new Date()}
-              renderArrow={(direction: 'left' | 'right') => {
-                if (direction === 'left') {
-                  return <Icon type="FontAwesome5" name="arrow-left" style={styles.arrow} />
-                } else {
-                  return <Icon type="FontAwesome5" name="arrow-right" style={styles.arrow} />
-                }
-              }}
-              theme={{
-                todayTextColor: '#36C1A7',
-              }}
-              onDayPress={(date) => {
-                onChange(date.dateString)
-                setIsView(false)
-              }}
-            />
-          </View>
+      <Overlay
+        visible={isView}
+        onClose={() => setIsView(false)}
+        closeOnTouchOutside
+        containerStyle={styles.overlayContainer}
+        childrenWrapperStyle={styles.overlayChildren}>
+        <View style={styles.modalCalendarContainer}>
+          <Text style={styles.modalCalenderTitle}>Please Select Day</Text>
+          <Calendar
+            style={styles.modalCalendar}
+            current={value ? new Date(value) : new Date()}
+            renderArrow={(direction: 'left' | 'right') => {
+              if (direction === 'left') {
+                return <Icon type="FontAwesome5" name="arrow-left" style={styles.arrow} />
+              } else {
+                return <Icon type="FontAwesome5" name="arrow-right" style={styles.arrow} />
+              }
+            }}
+            theme={{
+              todayTextColor: '#36C1A7',
+            }}
+            onDayPress={(date) => {
+              onChange(date.dateString)
+              setIsView(false)
+            }}
+          />
         </View>
-      </Modal>
+      </Overlay>
     </View>
   )
 }

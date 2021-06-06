@@ -1,5 +1,5 @@
 import React from 'react'
-import { View, Text, FlatList, TouchableOpacity, StyleSheet, Pressable } from 'react-native'
+import { View, Text, FlatList, TouchableOpacity, StyleSheet } from 'react-native'
 import { StackNavigationProp } from '@react-navigation/stack'
 import { ListItem } from 'react-native-elements'
 import { Icon } from 'react-native-elements'
@@ -7,6 +7,8 @@ import { RootStackParamList } from '../../../App'
 import useDiary from '../../hooks/useDiary'
 import QuestionModal from '../../components/Modal/QuestionModal'
 import BannerAd from '../../components/BannerAd'
+import { DiaryType } from '../../types/diary'
+import Spinner from '../../components/Spinner'
 
 export type DiaryScreenNavigationProp = StackNavigationProp<RootStackParamList, 'Diary'>
 
@@ -23,7 +25,6 @@ const Diary: React.FC<Props> = ({ navigation }) => {
       flex: 1,
       backgroundColor: '#fff',
       alignItems: 'center',
-      justifyContent: 'center',
     },
     separator: {
       flex: 1,
@@ -38,11 +39,11 @@ const Diary: React.FC<Props> = ({ navigation }) => {
       bottom: 30,
       right: 0,
     },
-    row: {
+    rowItem: {
+      flex: 1,
       flexDirection: 'row',
-      paddingRight: 20,
-      paddingLeft: 20,
-      paddingVertical: 5,
+      justifyContent: 'space-between',
+      padding: 5,
     },
     title: {
       color: '#000',
@@ -52,56 +53,75 @@ const Diary: React.FC<Props> = ({ navigation }) => {
       color: '#db7093',
       fontSize: 12,
     },
+    rowItemTitle: {
+      width: '80%',
+    },
+    titleRow: {
+      flexDirection: 'row',
+      paddingRight: 20,
+      paddingLeft: 20,
+      paddingVertical: 5,
+    },
+    rowItemButtons: {
+      flexDirection: 'row',
+      alignItems: 'center',
+    },
   })
+
+  const RowItem: React.FC<{ diary: DiaryType }> = ({ diary }) => {
+    return (
+      // <View>
+      //   <Text
+      //     onPress={() => {
+      //       navigation.navigate('Detail', { diary })
+      //     }}>
+      //     {diary.title}
+      //   </Text>
+      // </View>
+      <View style={styles.rowItem}>
+        <TouchableOpacity
+          style={styles.rowItemTitle}
+          onPress={() => {
+            navigation.navigate('Detail', { diary })
+          }}>
+          <View style={styles.titleRow}>
+            <Text style={styles.title}>{diary.title}</Text>
+          </View>
+          <View style={styles.titleRow}>
+            <Text style={styles.date}>{diary.date}</Text>
+          </View>
+        </TouchableOpacity>
+        <View style={styles.rowItemButtons}>
+          <Icon
+            name="edit"
+            type="font-awesome-5"
+            color="#f50"
+            style={{ marginRight: 10 }}
+            onPress={() => navigation.navigate('Edit', { diary })}
+          />
+          <Icon
+            name="trash"
+            type="font-awesome-5"
+            color="#666"
+            onPress={() => {
+              handlers.changeModalView(true)
+              handlers.setTargetDiary(diary)
+            }}
+          />
+        </View>
+      </View>
+    )
+  }
 
   return (
     <View style={styles.container}>
       <FlatList
         ItemSeparatorComponent={() => <View style={styles.separator} />}
         data={state.diaries}
-        style={{ width: '80%' }}
-        renderItem={({ item: diary }) => (
-          <ListItem
-            containerStyle={{
-              flex: 1,
-              flexDirection: 'row',
-              justifyContent: 'space-between',
-            }}>
-            <TouchableOpacity
-              style={{ width: '70%' }}
-              onPress={() => {
-                navigation.navigate('Detail', { diary })
-              }}>
-              <View style={styles.row}>
-                <Text style={styles.title}>{diary.title}</Text>
-              </View>
-              <View style={styles.row}>
-                <Text style={styles.date}>{diary.date}</Text>
-              </View>
-            </TouchableOpacity>
-            <View
-              style={{
-                flexDirection: 'row',
-              }}>
-              <Icon
-                name="edit"
-                type="font-awesome-5"
-                color="#f50"
-                style={{ marginRight: 10 }}
-                onPress={() => navigation.navigate('Edit', { diary })}
-              />
-              <Icon
-                name="trash"
-                type="font-awesome-5"
-                color="#666"
-                onPress={() => {
-                  handlers.changeModalView(true)
-                  handlers.setTargetDiary(diary)
-                }}
-              />
-            </View>
-          </ListItem>
-        )}
+        style={{ width: '80%', height: '80%', flexGrow: 0 }}
+        renderItem={({ item: diary }) => <RowItem diary={diary} />}
+        onEndReached={() => handlers.loadList(state.diaries.length + 20)}
+        onEndReachedThreshold={0.3}
       />
       <View style={styles.createButton}>
         <Icon
@@ -119,6 +139,7 @@ const Diary: React.FC<Props> = ({ navigation }) => {
         message="削除してよろしいですか？"
       />
       <BannerAd />
+      <Spinner />
     </View>
   )
 }

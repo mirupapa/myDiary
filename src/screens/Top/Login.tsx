@@ -23,6 +23,7 @@ const Login: React.FC<Props> = ({ navigation }) => {
     <View style={styles.container}>
       <StatusBar style="auto" />
       <Input
+        width={200}
         label="Email"
         value={state.email}
         errMessage={state.err_email}
@@ -30,6 +31,7 @@ const Login: React.FC<Props> = ({ navigation }) => {
         onSubmit={handlers.onClickLogin}
       />
       <Input
+        width={200}
         label="Password"
         value={state.password}
         errMessage={state.err_password}
@@ -37,12 +39,14 @@ const Login: React.FC<Props> = ({ navigation }) => {
         onSubmit={handlers.onClickLogin}
         isPassword
       />
-      <Button
-        onPress={() => handlers.onClickLogin()}
-        label="Login"
-        colorType="base_red"
-        isDisabled={state.isDisabled}
-      />
+      <View style={{ marginTop: 20 }}>
+        <Button
+          onPress={() => handlers.onClickLogin()}
+          label="Login"
+          colorType="base_red"
+          isDisabled={state.isDisabled}
+        />
+      </View>
       <BannerAd />
       <Spinner />
     </View>

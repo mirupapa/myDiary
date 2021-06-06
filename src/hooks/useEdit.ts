@@ -7,7 +7,7 @@ import { EditScreenNavigationProp } from '../screens/Diary/Edit'
 import { DiaryType, isDiary } from '../types/diary'
 
 export type HandlersType = {
-  onClickEdit: (item: DiaryType) => void
+  onClickEdit: () => void
   onChangeText: (value: string) => void
   onChangeTitle: (value: string) => void
   onChangeDate: (value: string) => void
@@ -45,14 +45,15 @@ const useDiary = (navigation: navigationType, diary?: DiaryType): UseLoginType =
     })
   }
 
-  const onClickEdit = async (item: DiaryType) => {
+  const onClickEdit = async () => {
+    if (!diary) return null
     try {
       await firebase.auth().onAuthStateChanged((user) => {
         if (user) {
           const date = state.date.replaceAll('-', '/') + ' 00:00:00'
           dbh
             .collection('diary')
-            .doc(item.id)
+            .doc(diary.id)
             .update({ title: state.title, text: state.text, date: new Date(date) })
           navigation.navigate('Diary')
         } else {
@@ -66,9 +67,9 @@ const useDiary = (navigation: navigationType, diary?: DiaryType): UseLoginType =
     }
   }
 
+  let isMounted = true
   useEffect(() => {
     console.log('useEdit')
-    let isMounted = true
     if (isMounted) {
       if (isDiary(diary)) {
         dispatch({

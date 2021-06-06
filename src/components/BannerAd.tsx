@@ -1,14 +1,24 @@
 import React from 'react'
-import { Platform, View } from 'react-native'
+import { Platform, View, StyleSheet } from 'react-native'
 import { AdMobBanner } from 'expo-ads-admob'
 
 const BannerAd = () => {
   const bannerError = () => {
     console.log('Ad Fail error')
   }
+  const styles = StyleSheet.create({
+    container: {
+      position: 'absolute',
+      height: 50,
+      bottom: 10,
+      width: '100%',
+      flexDirection: 'row',
+      justifyContent: 'center',
+    },
+  })
 
   return (
-    <View style={{ position: 'absolute', height: 50, bottom: 10 }}>
+    <View style={styles.container}>
       <AdMobBanner
         adUnitID={
           __DEV__
