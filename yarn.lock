@@ -2158,11 +2158,6 @@
     "@types/long" "*"
     "@types/node" "*"
 
-"@types/datejs@^0.0.31":
-  version "0.0.31"
-  resolved "https://registry.npmjs.org/@types/datejs/-/datejs-0.0.31.tgz"
-  integrity sha512-Y8z5tvhPcjWBbGByO/PoDnzi4MiVO5Aimh45b7N5iEO7qN8grAfUQYfWIQsr5ugb1IGlPZX4FcMzH6Lb0WBpmw==
-
 "@types/eslint-plugin-prettier@^3.1.0":
   version "3.1.0"
   resolved "https://registry.yarnpkg.com/@types/eslint-plugin-prettier/-/eslint-plugin-prettier-3.1.0.tgz"
@@ -3590,10 +3585,10 @@ damerau-levenshtein@^1.0.6:
   resolved "https://registry.yarnpkg.com/damerau-levenshtein/-/damerau-levenshtein-1.0.6.tgz"
   integrity sha512-JVrozIeElnj3QzfUIt8tB8YMluBJom4Vw9qTPpjGYQ9fYlB3D/rb6OordUxf3xeFB35LKWs0xqcO5U6ySvBtug==
 
-datejs@^1.0.0-rc3:
-  version "1.0.0-rc3"
-  resolved "https://registry.npmjs.org/datejs/-/datejs-1.0.0-rc3.tgz"
-  integrity sha1-v/oe/t7+tB/diiQq9Vr6AftY3lc=
+dayjs@^1.10.5:
+  version "1.10.5"
+  resolved "https://registry.yarnpkg.com/dayjs/-/dayjs-1.10.5.tgz#5600df4548fc2453b3f163ebb2abbe965ccfb986"
+  integrity sha512-BUFis41ikLz+65iH6LHQCDm4YPMj5r1YFLdupPIyM4SGcXMmtiLQ7U37i+hGS8urIuqe7I/ou3IS1jVc4nbN4g==
 
 dayjs@^1.8.15:
   version "1.10.4"

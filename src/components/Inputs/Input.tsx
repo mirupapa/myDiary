@@ -68,6 +68,7 @@ const Input: React.FC<Props> = ({
         secureTextEntry={isPassword}
         multiline={isMultiline}
         editable={!readOnly}
+        keyboardType={label === 'email' ? 'email-address' : 'default'}
       />
       <Text style={styles.errText}>{errMessage}</Text>
     </View>

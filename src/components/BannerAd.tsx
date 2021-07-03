@@ -8,9 +8,9 @@ const BannerAd = () => {
   }
   const styles = StyleSheet.create({
     container: {
-      position: 'absolute',
+      // position: 'absolute',
       height: 50,
-      bottom: 10,
+      // bottom: 0,
       width: '100%',
       flexDirection: 'row',
       justifyContent: 'center',

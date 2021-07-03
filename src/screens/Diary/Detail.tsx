@@ -1,11 +1,11 @@
 import { StackNavigationProp } from '@react-navigation/stack'
-import { RootStackParamList } from 'App'
 import React from 'react'
 import { StyleSheet } from 'react-native'
 import useDetail from '../../hooks/useDetail'
 import Editor from '../../components/Editor'
+import { DiaryStackParamList } from '../../navigation/DiaryStack'
 
-export type NavigationProp = StackNavigationProp<RootStackParamList, 'Detail'>
+export type NavigationProp = StackNavigationProp<DiaryStackParamList, 'Detail'>
 
 type Props = {
   route: any

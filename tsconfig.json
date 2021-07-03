@@ -8,7 +8,6 @@
     "skipLibCheck": true,
     "resolveJsonModule": true,
     "strict": true,
-    "typeRoots": ["./src/types"],
-    "baseUrl": "./",
+    "typeRoots": ["./src/types"]
   }
 }

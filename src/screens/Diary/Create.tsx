@@ -1,16 +1,10 @@
 import React from 'react'
-import KeyboardSpacer from 'react-native-keyboard-spacer'
-import { TouchableWithoutFeedback, Keyboard, View, StyleSheet, KeyboardAvoidingView, Platform } from 'react-native'
 import { StackNavigationProp } from '@react-navigation/stack'
-import { RootStackParamList } from '../../../App'
-import InputCalendar from '../../components/Inputs/InputCalendar'
-import Input from '../../components/Inputs/Input'
-import Button from '../../components/Buttons/Button'
 import useCreate from '../../hooks/useCreate'
-import BannerAd from '../../components/BannerAd'
 import Editor from '../../components/Editor'
+import { DiaryStackParamList } from '../../navigation/DiaryStack'
 
-export type CreateScreenNavigationProp = StackNavigationProp<RootStackParamList, 'Create'>
+export type CreateScreenNavigationProp = StackNavigationProp<DiaryStackParamList, 'Create'>
 
 type Props = {
   navigation: CreateScreenNavigationProp

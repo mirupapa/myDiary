@@ -1,6 +1,6 @@
-import firebase from 'firebase'
 import { useReducer } from 'react'
 import { Alert } from 'react-native'
+import { auth } from '../../firebase'
 import { CommonContext } from '../context/commonContext'
 import { initialState, reducer, State } from '../reducers/loginReducer'
 import { LoginScreenNavigationProp } from '../screens/Top/Login'
@@ -41,8 +41,7 @@ const useLogin = (navigation: navigationType): UseLoginType => {
   const onClickLogin = () => {
     console.log('login')
     commonDispatch({ type: 'UPDATE_SPINNER_VIEW', payload: true })
-    firebase
-      .auth()
+    auth
       .signInWithEmailAndPassword(state.email, state.password)
       .then((user) => {
         commonDispatch({ type: 'UPDATE_LOGIN', payload: true })
@@ -58,12 +57,11 @@ const useLogin = (navigation: navigationType): UseLoginType => {
 
   const onClickSignUp = () => {
     commonDispatch({ type: 'UPDATE_SPINNER_VIEW', payload: true })
-    firebase
-      .auth()
+    auth
       .createUserWithEmailAndPassword(state.email, state.password)
       .then((user) => {
         commonDispatch({ type: 'UPDATE_LOGIN', payload: true })
-        navigation.navigate('Diary')
+        //navigation.navigate('Diary')
       })
       .catch(() => {
         Alert.alert('SignUp Error')

@@ -15,7 +15,7 @@
     "@react-navigation/native": "^5.9.4",
     "@react-navigation/stack": "^5.14.4",
     "@types/react-native-calendars": "^1.505.3",
-    "datejs": "^1.0.0-rc3",
+    "dayjs": "^1.10.5",
     "expo": "~40.0.0",
     "expo-ads-admob": "~8.4.0",
     "expo-status-bar": "~1.0.3",
@@ -39,7 +39,6 @@
   "devDependencies": {
     "@babel/core": "^7.9.0",
     "@types/babel__core": "^7.1.14",
-    "@types/datejs": "^0.0.31",
     "@types/eslint": "^7.2.9",
     "@types/eslint-plugin-prettier": "^3.1.0",
     "@types/prettier": "^2.2.3",

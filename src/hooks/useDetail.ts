@@ -5,6 +5,7 @@ import { NavigationProp } from '../screens/Diary/Detail'
 import { initialState, reducer, State } from '../reducers/diaryReducer'
 import { DiaryType, isDiary } from '../types/diary'
 import { Alert } from 'react-native'
+import { auth, db } from '../../firebase'
 
 export type HandlersType = {
   onClickDelete: () => void
@@ -34,12 +35,10 @@ const useDetail = (diary: DiaryType, navigation: NavigationProp): Type => {
 
   const onClickDelete = async () => {
     console.log('delete')
-    console.log('test2', diary.id)
     try {
-      await firebase.auth().onAuthStateChanged((user) => {
+      await auth.onAuthStateChanged((user) => {
         if (user && diary.id) {
-          dbh
-            .collection('diary')
+          db.collection('diary')
             .doc(diary.id)
             .delete()
             .then(() => {
@@ -49,12 +48,10 @@ const useDetail = (diary: DiaryType, navigation: NavigationProp): Type => {
             })
         } else {
           Alert.alert('Auth Error')
-          navigation.navigate('Login')
         }
       })
     } catch (err) {
       Alert.alert('System Error')
-      navigation.navigate('Login')
     }
   }
 

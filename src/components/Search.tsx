@@ -9,7 +9,6 @@ const Search = () => {
   const [word, setWord] = useState('')
   const { state: commonState, dispatch: commonDispatch } = CommonContext()
   const onClickSearch = (value: string) => {
-    console.log(value)
     commonDispatch({ type: 'UPDATE_SEARCH_WORD', payload: value })
     handlers.changeMenuView(!state.isMenuView)
   }

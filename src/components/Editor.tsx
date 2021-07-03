@@ -4,7 +4,6 @@ import { TouchableWithoutFeedback, Keyboard, View, StyleSheet, Text } from 'reac
 import InputCalendar from './Inputs/InputCalendar'
 import Input from './Inputs/Input'
 import Button from './Buttons/Button'
-import BannerAd from './BannerAd'
 import QuestionModal from './Modal/QuestionModal'
 
 const Editor: React.FC<{
@@ -98,7 +97,6 @@ const Editor: React.FC<{
           message="削除してよろしいですか？"
         />
       )}
-      <BannerAd />
       <KeyboardSpacer />
     </View>
   )

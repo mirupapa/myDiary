@@ -2,15 +2,14 @@ import { StatusBar } from 'expo-status-bar'
 import React from 'react'
 import { View } from 'react-native'
 import { StackNavigationProp } from '@react-navigation/stack'
-import { RootStackParamList } from '../../../App'
 import useLogin from '../../hooks/useLogin'
 import { styles } from '../../styles/common'
 import Input from '../../components/Inputs/Input'
 import Button from '../../components/Buttons/Button'
 import Spinner from '../../components/Spinner'
-import BannerAd from '../../components/BannerAd'
+import { AuthStackParamList } from '../../navigation/AuthStack'
 
-export type LoginScreenNavigationProp = StackNavigationProp<RootStackParamList, 'Login'>
+export type LoginScreenNavigationProp = StackNavigationProp<AuthStackParamList, 'Login'>
 
 type Props = {
   navigation: LoginScreenNavigationProp
@@ -47,7 +46,6 @@ const Login: React.FC<Props> = ({ navigation }) => {
           isDisabled={state.isDisabled}
         />
       </View>
-      <BannerAd />
       <Spinner />
     </View>
   )
