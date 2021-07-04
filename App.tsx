@@ -10,7 +10,7 @@ import BannerAd from './src/components/BannerAd'
 const App: React.VFC = () => {
   const [loggedIn, setLoggedIn] = useState(true)
 
-  React.useEffect(() => {
+  React.useLayoutEffect(() => {
     const unSubscribe = auth.onAuthStateChanged((user: any) => {
       if (user) {
         setLoggedIn(true)

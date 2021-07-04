@@ -39,7 +39,6 @@ const useLogin = (navigation: navigationType): UseLoginType => {
   }
 
   const onClickLogin = () => {
-    console.log('login')
     commonDispatch({ type: 'UPDATE_SPINNER_VIEW', payload: true })
     auth
       .signInWithEmailAndPassword(state.email, state.password)

@@ -34,7 +34,6 @@ const useMenu = (): UseLoginType => {
   }
 
   const logout = () => {
-    console.log('logout')
     commonDispatch({ type: 'UPDATE_LOGIN', payload: false })
     auth
       .signOut()

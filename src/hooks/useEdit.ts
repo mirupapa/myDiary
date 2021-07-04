@@ -65,7 +65,6 @@ const useDiary = (navigation: navigationType, diary?: DiaryType): UseLoginType =
 
   useEffect(() => {
     let isMounted = true
-    console.log('useEdit')
     if (isMounted) {
       if (isDiary(diary)) {
         dispatch({

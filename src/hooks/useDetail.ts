@@ -43,7 +43,6 @@ const useDetail = (diary: DiaryType, navigation: NavigationProp): Type => {
             .delete()
             .then(() => {
               changeModalView(false)
-              console.log('test2')
               navigation.navigate('Diary')
             })
         } else {

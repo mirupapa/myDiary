@@ -97,7 +97,6 @@ const useDiary = (): UseType => {
           }
           console.log('_diaries:', _diaries.length)
         } else {
-          Alert.alert('un auth')
           return
         }
       })
@@ -107,8 +106,6 @@ const useDiary = (): UseType => {
       commonDispatch({ type: 'UPDATE_SPINNER_VIEW', payload: false })
     }
   }
-
-
 
   useEffect(() => {
     let isMounted = true

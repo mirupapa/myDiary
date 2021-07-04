@@ -16,7 +16,6 @@ const Login: React.FC<Props> = ({ navigation }) => {
     <View style={styles.container}>
       <Button
         onPress={() => {
-          console.log('onpress')
           navigation.navigate('Login')
         }}
         label="LOGIN"

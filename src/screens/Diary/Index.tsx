@@ -34,62 +34,46 @@ const Diary: React.FC<Props> = ({ navigation }) => {
       width: '100%',
       paddingRight: 10,
       flexDirection: 'row',
-      justifyContent: 'flex-end'
-      // position: 'absolute',
-      // bottom: 30,
-      // right: 0,
+      justifyContent: 'flex-end',
     },
     rowItem: {
       flex: 1,
       flexDirection: 'row',
       justifyContent: 'space-between',
-      padding: 5,
+      padding: 10,
       backgroundColor: '#fff',
     },
     title: {
       color: '#000',
       fontSize: 16,
+      fontWeight: 'bold',
     },
     date: {
       color: '#db7093',
-      fontSize: 12,
+      fontSize: 14,
     },
     rowItemTitle: {
-      width: '50%',
+      flex: 1,
     },
     titleRow: {
       flexDirection: 'row',
-      paddingRight: 20,
-      paddingLeft: 20,
-      paddingVertical: 5,
+      paddingRight: 10,
+      paddingLeft: 10,
     },
     rowItemButtons: {
       flexDirection: 'row',
       alignItems: 'center',
     },
     dateArea: {
-      width: 50,
-      backgroundColor: 'grey',
+      width: 80,
       flexDirection: 'column',
       justifyContent: 'center',
     },
   })
 
-  const DateArea: React.FC<{date: string}> = ({ date }) => {
-    const da = dayjs(date)
-    return (
-      <View style={styles.dateArea}>
-        <Text style={{ backgroundColor: 'blue', display: 'flex' }}>{da.format('YYYY年')}</Text>
-        <Text style={{ backgroundColor: 'red', display: 'flex' }}>{da.format('MM月')}</Text>
-        <Text style={{ backgroundColor: 'green', display: 'flex' }}>{da.format('DD日')}</Text>
-      </View>
-    )
-  }
-
   const RowItem: React.FC<{ diary: DiaryType }> = ({ diary }) => {
     return (
       <View style={styles.rowItem}>
-        <DateArea date={diary.date} />
         <TouchableOpacity
           style={styles.rowItemTitle}
           onPress={() => {
@@ -129,20 +113,26 @@ const Diary: React.FC<Props> = ({ navigation }) => {
       style={{
         flex: 1,
         justifyContent: 'space-between',
-        flexDirection: 'column',
         alignItems: 'center',
+        flexDirection: 'column',
         backgroundColor: '#fff',
       }}>
-      {/* <View style={styles.container}> */}
-      <View style={{
-          flexGrow: 0,width: '100%', height: '85%', padding: 10, borderBottomColor: '#eee', borderBottomWidth: 1 }}>
-       <FlatList
-        ItemSeparatorComponent={() => <View style={styles.separator} />}
-        data={state.diaries}
-        renderItem={({ item: diary }) => <RowItem diary={diary} />}
-        onEndReached={() => handlers.loadList(state.diaries.length + 20)}
-        onEndReachedThreshold={0.3}
-      />
+      <View
+        style={{
+          width: '100%',
+          height: '100%',
+          flexShrink: 1,
+          paddingVertical: 10,
+          borderBottomColor: '#eee',
+          borderBottomWidth: 1,
+        }}>
+        <FlatList
+          ItemSeparatorComponent={() => <View style={styles.separator} />}
+          data={state.diaries}
+          renderItem={({ item: diary }) => <RowItem diary={diary} />}
+          onEndReached={() => handlers.loadList(state.diaries.length + 20)}
+          onEndReachedThreshold={0.3}
+        />
       </View>
 
       <View style={styles.createButton}>
@@ -162,7 +152,6 @@ const Diary: React.FC<Props> = ({ navigation }) => {
         message="削除してよろしいですか？"
       />
       <Spinner />
-      {/* </View> */}
     </SafeAreaView>
   )
 }
