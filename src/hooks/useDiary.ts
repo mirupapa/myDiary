@@ -6,7 +6,7 @@ import { Alert } from 'react-native'
 import { auth, db } from '../../firebase'
 import { CommonContext } from '../context/commonContext'
 import { initialState, reducer, State } from '../reducers/diaryReducer'
-import { DiaryScreenNavigationProp } from '../screens/Diary/Index'
+import { DiaryScreenNavigationProp } from '../screens/Diary/Index2'
 import { DiaryType, isDiaries, isDiary } from '../types/diary'
 
 export type HandlersType = {
