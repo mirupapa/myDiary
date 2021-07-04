@@ -8,7 +8,7 @@ import Search from '../components/Search'
 import DiaryCreate from '../screens/Diary/Create'
 import DiaryDetail from '../screens/Diary/Detail'
 import DiaryEdit from '../screens/Diary/Edit'
-import Diary from '../screens/Diary/Index2'
+import Diary from '../screens/Diary/Index'
 
 export type DiaryStackParamList = {
   Diary: undefined
