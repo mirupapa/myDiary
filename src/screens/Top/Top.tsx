@@ -2,26 +2,26 @@ import React from 'react'
 import { View } from 'react-native'
 import { StackNavigationProp } from '@react-navigation/stack'
 import { styles } from '../../styles/common'
-import { RootStackParamList } from '../../../App'
 import Button from '../../components/Buttons/Button'
-import BannerAd from '../../components/BannerAd'
+import { AuthStackParamList } from '../../navigation/AuthStack'
 
-export type ScreenNavigationProp = StackNavigationProp<RootStackParamList, 'Top'>
+export type ScreenNavigationProp = StackNavigationProp<AuthStackParamList, 'Top'>
 
 type Props = {
   navigation: ScreenNavigationProp
 }
 
-// todo auth情報初期読み込み
-
 const Login: React.FC<Props> = ({ navigation }) => {
   return (
     <View style={styles.container}>
       <Button
-        onPress={() => navigation.navigate('Login')}
+        onPress={() => {
+          navigation.navigate('Login')
+        }}
         label="LOGIN"
         colorType="base_red"
         iconType="chevron-right"
+        width={150}
       />
       <View style={{ height: 20 }}></View>
       <Button
@@ -29,8 +29,8 @@ const Login: React.FC<Props> = ({ navigation }) => {
         label="SIGN UP"
         colorType="base_blue"
         iconType="user-plus"
+        width={150}
       />
-      <BannerAd />
     </View>
   )
 }

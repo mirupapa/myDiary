@@ -1,11 +1,11 @@
-import { useIsFocused } from '@react-navigation/native'
-import dayjs from 'dayjs'
-import firebase from 'firebase/app'
-import 'firebase/firestore'
+// import 'firebase/firestore'
 import { useReducer } from 'react'
 import { Alert } from 'react-native'
+import { CommonContext } from 'src/context/commonContext'
+import { db } from 'src/../firebase'
 import { initialState, reducer, State } from '../reducers/diaryReducer'
 import { CreateScreenNavigationProp } from '../screens/Diary/Create'
+import { formatDate } from '../utils/utils'
 
 export type HandlersType = {
   onClickCreate: () => void
@@ -23,8 +23,7 @@ type navigationType = CreateScreenNavigationProp
 
 const useCreate = (navigation: navigationType): UseType => {
   const [state, dispatch] = useReducer(reducer, initialState)
-  const isFocused = useIsFocused()
-  const dbh = firebase.firestore()
+  const commonContext = CommonContext()
 
   const onChangeText = (value: string) => {
     dispatch({
@@ -49,33 +48,28 @@ const useCreate = (navigation: navigationType): UseType => {
 
   const onClickCreate = async () => {
     try {
-      firebase.auth().onAuthStateChanged(async (user) => {
-        if (user && isFocused) {
-          var uid = user.uid
-          const id = dayjs().format('YYMMDDHHmmss') + uid.substring(0, 4)
-          const date = state.date.replaceAll('-', '/') + ' 00:00:00'
-          await dbh
-            .collection('diary')
-            .doc(id)
-            .set({
-              uid: uid,
-              title: state.title,
-              text: state.text,
-              date: new Date(date),
-            })
-            .then(async () => {
-              console.log('isFocused:', isFocused)
-              console.log('created')
-            })
-          navigation.navigate('Diary')
-        } else {
-          Alert.alert('Auth Error')
-          navigation.navigate('Login')
-        }
-      })
+      if (commonContext.state.userInfo) {
+        var uid = commonContext.state.userInfo.uid
+        const id = formatDate(new Date(), 'YYMMDDHHmmss') + uid.substring(0, 4)
+        const date = state.date.replaceAll('-', '/') + ' 00:00:00'
+        await db
+          .collection('diary')
+          .doc(id)
+          .set({
+            uid: uid,
+            title: state.title,
+            text: state.text,
+            date: new Date(date),
+          })
+          .then(async () => {
+            console.log('created')
+          })
+        navigation.navigate('Diary')
+      } else {
+        Alert.alert('Auth Error')
+      }
     } catch (err) {
       Alert.alert('System Error')
-      navigation.navigate('Login')
     }
   }
 

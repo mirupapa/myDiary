@@ -1,4 +1,4 @@
-import * as yup from 'yup'
+import { string } from 'yup'
 import { validator } from '../utils/validator'
 
 export type State = {
@@ -12,17 +12,17 @@ export type State = {
 export type Action = { type: 'UPDATE_EMAIL'; payload: string } | { type: 'UPDATE_PASSWORD'; payload: string }
 
 export const initialState: State = {
-  email: 'eeee@eeee.eeee',
-  password: 'eeee1234',
+  email: '',
+  password: '',
   err_email: '',
   err_password: '',
-  isDisabled: false, //true
+  isDisabled: true,
 }
 
 export const reducer = (state: State, action: Action): State => {
   switch (action.type) {
     case 'UPDATE_EMAIL': {
-      const validate = yup.string().required('email is required').email('not email format')
+      const validate = string().required('email is required').email('not email format')
       const err_email = validator(validate, action.payload)
       return {
         ...state,
@@ -36,7 +36,7 @@ export const reducer = (state: State, action: Action): State => {
       }
     }
     case 'UPDATE_PASSWORD': {
-      const validate = yup.string().required('password is required')
+      const validate = string().required('password is required')
       const err_password = validator(validate, action.payload)
       return {
         ...state,

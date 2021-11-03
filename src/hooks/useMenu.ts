@@ -1,7 +1,7 @@
-import firebase from 'firebase'
-import { useEffect, useReducer } from 'react'
+import { useReducer } from 'react'
 import { CommonContext } from '../context/commonContext'
 import { initialState, reducer, State } from '../reducers/menuReducer'
+import { auth } from '../../firebase'
 
 export type HandlersType = {
   changeMenuView: (value: boolean) => void
@@ -33,13 +33,16 @@ const useMenu = (): UseLoginType => {
   }
 
   const logout = () => {
-    console.log('logout')
     commonDispatch({ type: 'UPDATE_LOGIN', payload: false })
+    auth
+      .signOut()
+      .then(() => {
+        console.log('Sign out success!')
+      })
+      .catch((error: { message: any }) => {
+        console.error(error.message)
+      })
   }
-
-  useEffect(() => {
-    console.log('menu')
-  }, [])
 
   return {
     state,

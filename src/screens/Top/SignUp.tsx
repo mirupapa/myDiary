@@ -1,23 +1,14 @@
 import { StatusBar } from 'expo-status-bar'
 import React from 'react'
-import { View } from 'react-native'
-import { StackNavigationProp } from '@react-navigation/stack'
-import { RootStackParamList } from '../../../App'
-import { styles } from '../../styles/base'
-import useLogin from '../../hooks/useLogin'
-import Spinner from '../../components/Spinner'
-import Input from '../../components/Inputs/Input'
-import Button from '../../components/Buttons/Button'
-import BannerAd from '../../components/BannerAd'
+import { View, Text } from 'react-native'
+import { styles } from 'src/styles/base'
+import useLogin from 'src/hooks/useLogin'
+import Spinner from 'src/components/Spinner'
+import Input from 'src/components/Inputs/Input'
+import Button from 'src/components/Buttons/Button'
 
-export type SignUpScreenNavigationProp = StackNavigationProp<RootStackParamList, 'SignUp'>
-
-type Props = {
-  navigation: SignUpScreenNavigationProp
-}
-
-const Login: React.FC<Props> = ({ navigation }) => {
-  const { state, handlers } = useLogin(navigation)
+const SignUp: React.FC = () => {
+  const { state, handlers } = useLogin()
 
   return (
     <View style={styles.container}>
@@ -43,12 +34,14 @@ const Login: React.FC<Props> = ({ navigation }) => {
           label="Sign Up"
           colorType="base_blue"
           isDisabled={state.isDisabled}
+          width={150}
+          paddingLeft={35}
         />
       </View>
-      <BannerAd />
+      <Text style={{ marginTop: 20 }}>please enter your email and password</Text>
       <Spinner />
     </View>
   )
 }
 
-export default Login
+export default SignUp

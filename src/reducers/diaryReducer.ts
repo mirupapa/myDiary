@@ -1,7 +1,7 @@
 import * as yup from 'yup'
 import { DiaryType } from '../types/diary'
 import { validator } from '../utils/validator'
-import dayjs from 'dayjs'
+import { formatDate } from '../utils/utils'
 
 export type State = {
   diaries: DiaryType[]
@@ -25,7 +25,7 @@ export const initialState: State = {
   },
   title: '',
   text: '',
-  date: dayjs().format('YYYY-MM-DD'),
+  date: formatDate(new Date(), 'YYYY-MM-DD'),
   err_title: '',
   isDisabled: true,
 }

@@ -1,7 +1,8 @@
-import firebase from 'firebase/app'
-import 'firebase/firestore'
+// import 'firebase/firestore'
 import { useEffect, useReducer } from 'react'
 import { Alert } from 'react-native'
+import { CommonContext } from 'src/context/commonContext'
+import { db } from '../../firebase'
 import { initialState, reducer, State } from '../reducers/diaryReducer'
 import { EditScreenNavigationProp } from '../screens/Diary/Edit'
 import { DiaryType, isDiary } from '../types/diary'
@@ -20,9 +21,9 @@ export type UseLoginType = {
 
 type navigationType = EditScreenNavigationProp
 
-const useDiary = (navigation: navigationType, diary?: DiaryType): UseLoginType => {
+const useEdit = (navigation: navigationType, diary?: DiaryType): UseLoginType => {
   const [state, dispatch] = useReducer(reducer, initialState)
-  const dbh = firebase.firestore()
+  const commonContext = CommonContext()
 
   const onChangeText = (value: string) => {
     dispatch({
@@ -48,28 +49,23 @@ const useDiary = (navigation: navigationType, diary?: DiaryType): UseLoginType =
   const onClickEdit = async () => {
     if (!diary) return null
     try {
-      await firebase.auth().onAuthStateChanged((user) => {
-        if (user) {
-          const date = state.date.replaceAll('-', '/') + ' 00:00:00'
-          dbh
-            .collection('diary')
-            .doc(diary.id)
-            .update({ title: state.title, text: state.text, date: new Date(date) })
-          navigation.navigate('Diary')
-        } else {
-          Alert.alert('Auth Error')
-          navigation.navigate('Login')
-        }
-      })
+      if (commonContext.state.userInfo) {
+        const date = state.date.replaceAll('-', '/') + ' 00:00:00'
+        await db
+          .collection('diary')
+          .doc(diary.id)
+          .update({ title: state.title, text: state.text, date: new Date(date) })
+        navigation.navigate('Diary')
+      } else {
+        Alert.alert('Auth Error')
+      }
     } catch (err) {
       Alert.alert('System Error')
-      navigation.navigate('Login')
     }
   }
 
-  let isMounted = true
   useEffect(() => {
-    console.log('useEdit')
+    let isMounted = true
     if (isMounted) {
       if (isDiary(diary)) {
         dispatch({
@@ -102,4 +98,4 @@ const useDiary = (navigation: navigationType, diary?: DiaryType): UseLoginType =
   }
 }
 
-export default useDiary
+export default useEdit

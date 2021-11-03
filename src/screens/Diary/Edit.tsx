@@ -1,10 +1,10 @@
 import React from 'react'
 import { StackNavigationProp } from '@react-navigation/stack'
-import { RootStackParamList } from '../../../App'
 import useEdit from '../../hooks/useEdit'
 import Editor from '../../components/Editor'
+import { DiaryStackParamList } from '../../navigation/DiaryStack'
 
-export type EditScreenNavigationProp = StackNavigationProp<RootStackParamList, 'Edit'>
+export type EditScreenNavigationProp = StackNavigationProp<DiaryStackParamList, 'Edit'>
 
 type Props = {
   route: any

@@ -1,10 +1,8 @@
-import firebase from 'firebase'
 import { useReducer } from 'react'
 import { Alert } from 'react-native'
-import { CommonContext } from '../context/commonContext'
-import { initialState, reducer, State } from '../reducers/loginReducer'
-import { LoginScreenNavigationProp } from '../screens/Top/Login'
-import { SignUpScreenNavigationProp } from '../screens/Top/SignUp'
+import { auth } from 'src/../firebase'
+import { CommonContext } from 'src/context/commonContext'
+import { initialState, reducer, State } from 'src/reducers/loginReducer'
 
 export type HandlersType = {
   onClickLogin: () => void
@@ -18,9 +16,7 @@ export type UseLoginType = {
   handlers: HandlersType
 }
 
-type navigationType = LoginScreenNavigationProp | SignUpScreenNavigationProp
-
-const useLogin = (navigation: navigationType): UseLoginType => {
+const useLogin = (): UseLoginType => {
   const [state, dispatch] = useReducer(reducer, initialState)
   const { dispatch: commonDispatch } = CommonContext()
 
@@ -39,17 +35,14 @@ const useLogin = (navigation: navigationType): UseLoginType => {
   }
 
   const onClickLogin = () => {
-    console.log('login')
     commonDispatch({ type: 'UPDATE_SPINNER_VIEW', payload: true })
-    firebase
-      .auth()
+    auth
       .signInWithEmailAndPassword(state.email, state.password)
-      .then((user) => {
+      .then((_user: any) => {
         commonDispatch({ type: 'UPDATE_LOGIN', payload: true })
-        // navigation.navigate('Diary')
       })
-      .catch((error) => {
-        Alert.alert('Login Error')
+      .catch((error: string | undefined) => {
+        Alert.alert('Login Error', error)
       })
       .finally(() => {
         commonDispatch({ type: 'UPDATE_SPINNER_VIEW', payload: false })
@@ -58,12 +51,10 @@ const useLogin = (navigation: navigationType): UseLoginType => {
 
   const onClickSignUp = () => {
     commonDispatch({ type: 'UPDATE_SPINNER_VIEW', payload: true })
-    firebase
-      .auth()
+    auth
       .createUserWithEmailAndPassword(state.email, state.password)
-      .then((user) => {
+      .then((_user: any) => {
         commonDispatch({ type: 'UPDATE_LOGIN', payload: true })
-        navigation.navigate('Diary')
       })
       .catch(() => {
         Alert.alert('SignUp Error')

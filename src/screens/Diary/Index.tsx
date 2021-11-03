@@ -1,29 +1,26 @@
 import React from 'react'
-import { View, Text, FlatList, TouchableOpacity, StyleSheet } from 'react-native'
+import { View, Text, FlatList, TouchableOpacity, StyleSheet, SafeAreaView } from 'react-native'
 import { StackNavigationProp } from '@react-navigation/stack'
-import { ListItem } from 'react-native-elements'
 import { Icon } from 'react-native-elements'
-import { RootStackParamList } from '../../../App'
 import useDiary from '../../hooks/useDiary'
 import QuestionModal from '../../components/Modal/QuestionModal'
-import BannerAd from '../../components/BannerAd'
 import { DiaryType } from '../../types/diary'
 import Spinner from '../../components/Spinner'
+import { DiaryStackParamList } from '../../navigation/DiaryStack'
 
-export type DiaryScreenNavigationProp = StackNavigationProp<RootStackParamList, 'Diary'>
+export type DiaryScreenNavigationProp = StackNavigationProp<DiaryStackParamList, 'Diary'>
 
 type Props = {
   navigation: DiaryScreenNavigationProp
 }
 
 const Diary: React.FC<Props> = ({ navigation }) => {
-  const { state, handlers } = useDiary(navigation)
+  const { state, handlers } = useDiary()
 
   const styles = StyleSheet.create({
     container: {
       position: 'relative',
       flex: 1,
-      backgroundColor: '#fff',
       alignItems: 'center',
     },
     separator: {
@@ -32,52 +29,49 @@ const Diary: React.FC<Props> = ({ navigation }) => {
       backgroundColor: '#ddd',
     },
     createButton: {
-      height: 100,
-      width: 100,
-      padding: 0,
-      position: 'absolute',
-      bottom: 30,
-      right: 0,
+      height: 50,
+      width: '100%',
+      paddingRight: 10,
+      flexDirection: 'row',
+      justifyContent: 'flex-end',
     },
     rowItem: {
       flex: 1,
       flexDirection: 'row',
       justifyContent: 'space-between',
-      padding: 5,
+      padding: 10,
+      backgroundColor: '#fff',
     },
     title: {
       color: '#000',
       fontSize: 16,
+      fontWeight: 'bold',
     },
     date: {
       color: '#db7093',
-      fontSize: 12,
+      fontSize: 14,
     },
     rowItemTitle: {
-      width: '80%',
+      flex: 1,
     },
     titleRow: {
       flexDirection: 'row',
-      paddingRight: 20,
-      paddingLeft: 20,
-      paddingVertical: 5,
+      paddingRight: 10,
+      paddingLeft: 10,
     },
     rowItemButtons: {
       flexDirection: 'row',
       alignItems: 'center',
     },
+    dateArea: {
+      width: 80,
+      flexDirection: 'column',
+      justifyContent: 'center',
+    },
   })
 
   const RowItem: React.FC<{ diary: DiaryType }> = ({ diary }) => {
     return (
-      // <View>
-      //   <Text
-      //     onPress={() => {
-      //       navigation.navigate('Detail', { diary })
-      //     }}>
-      //     {diary.title}
-      //   </Text>
-      // </View>
       <View style={styles.rowItem}>
         <TouchableOpacity
           style={styles.rowItemTitle}
@@ -114,33 +108,50 @@ const Diary: React.FC<Props> = ({ navigation }) => {
   }
 
   return (
-    <View style={styles.container}>
-      <FlatList
-        ItemSeparatorComponent={() => <View style={styles.separator} />}
-        data={state.diaries}
-        style={{ width: '80%', height: '80%', flexGrow: 0 }}
-        renderItem={({ item: diary }) => <RowItem diary={diary} />}
-        onEndReached={() => handlers.loadList(state.diaries.length + 20)}
-        onEndReachedThreshold={0.3}
-      />
+    <SafeAreaView
+      style={{
+        flex: 1,
+        justifyContent: 'space-between',
+        alignItems: 'center',
+        flexDirection: 'column',
+        backgroundColor: '#fff',
+      }}>
+      <View
+        style={{
+          width: '100%',
+          height: '100%',
+          flexShrink: 1,
+          paddingVertical: 10,
+          borderBottomColor: '#eee',
+          borderBottomWidth: 1,
+        }}>
+        <FlatList
+          ItemSeparatorComponent={() => <View style={styles.separator} />}
+          data={state.diaries}
+          renderItem={({ item: diary }) => <RowItem diary={diary} />}
+          onEndReached={() => handlers.loadList(state.diaries.length + 20)}
+          onEndReachedThreshold={0.3}
+        />
+      </View>
+
       <View style={styles.createButton}>
         <Icon
           name="plus-square"
           type="font-awesome"
           color="#55A200"
-          size={60}
+          size={50}
           onPress={() => navigation.navigate('Create')}
         />
       </View>
+
       <QuestionModal
         isView={state.isModalView}
         onPress={handlers.onClickDelete}
         onClose={handlers.changeModalView}
         message="削除してよろしいですか？"
       />
-      <BannerAd />
       <Spinner />
-    </View>
+    </SafeAreaView>
   )
 }
 
