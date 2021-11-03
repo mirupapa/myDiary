@@ -1,4 +1,3 @@
-import firebase from 'firebase'
 import { useReducer } from 'react'
 import { CommonContext } from '../context/commonContext'
 import { initialState, reducer, State } from '../reducers/menuReducer'

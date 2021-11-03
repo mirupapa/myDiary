@@ -8,6 +8,8 @@ type Props = {
   colorType: 'base_red' | 'base_blue' | 'base_green'
   iconType?: string | undefined
   isDisabled?: boolean
+  width?: number
+  paddingLeft?: number
 }
 
 const Button: React.FC<Props> = ({
@@ -16,6 +18,8 @@ const Button: React.FC<Props> = ({
   colorType = '',
   iconType,
   isDisabled = false,
+  width = 120,
+  paddingLeft = 45,
 }) => {
   const backColor =
     colorType === 'base_green'
@@ -27,21 +31,28 @@ const Button: React.FC<Props> = ({
       : 'grey'
   const styles = StyleSheet.create({
     view: {
-      width: iconType !== undefined ? 170 : 120,
+      position: 'relative',
+      width: width,
       flexDirection: 'row',
       backgroundColor: isDisabled ? 'grey' : backColor,
       borderRadius: 5,
     },
     icon: {
-      paddingVertical: 7,
-      paddingLeft: 10,
-      width: 50,
+      position: 'absolute',
+      left: 10,
+      top: 0,
+      // paddingHorizontal: 10,
+      // backgroundColor: 'gray',
+      width: 30,
+      lineHeight: 39,
       textAlign: 'center',
     },
     text: {
-      width: 120,
+      paddingLeft: paddingLeft,
+      width: '100%',
+      // backgroundColor: 'gray',
       color: isDisabled ? '#606060' : 'white',
-      textAlign: 'center',
+      textAlign: 'left',
       lineHeight: 40,
       fontSize: 24,
       fontWeight: 'bold',

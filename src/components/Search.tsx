@@ -62,7 +62,7 @@ const Search = () => {
                 <View style={{ flexDirection: 'row' }}>
                   <TextInput
                     style={{
-                      width: 200,
+                      width: '60%',
                       height: 30,
                       backgroundColor: 'white',
                       marginRight: 10,

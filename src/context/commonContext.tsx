@@ -5,13 +5,15 @@ export type State = {
   isSpinnerView: boolean
   errorMessage: string
   searchWord: string
+  userInfo: firebase.User | null
 }
 
-export const initialState = {
+export const initialState: State = {
   isLogin: false,
   isSpinnerView: false,
   errorMessage: '',
   searchWord: '',
+  userInfo: null,
 }
 
 export type Action =
@@ -19,6 +21,7 @@ export type Action =
   | { type: 'UPDATE_SPINNER_VIEW'; payload: boolean }
   | { type: 'UPDATE_ERROR_MESSAGE'; payload: string }
   | { type: 'UPDATE_SEARCH_WORD'; payload: string }
+  | { type: 'SET_USER_INFO'; payload: firebase.User | null }
 
 export const loginReducer = (state: State, action: Action) => {
   switch (action.type) {
@@ -44,6 +47,15 @@ export const loginReducer = (state: State, action: Action) => {
         ...state,
         searchWord: action.payload,
       }
+    }
+    case 'SET_USER_INFO': {
+      return {
+        ...state,
+        userInfo: action.payload,
+      }
+    }
+    default: {
+      throw new Error('context default error')
     }
   }
 }

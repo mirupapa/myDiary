@@ -1,30 +1,34 @@
-import React, { useState } from 'react'
+import React from 'react'
 import { NavigationContainer } from '@react-navigation/native'
-import { CommonProvider } from './src/context/commonContext'
+import { CommonContext, CommonProvider } from './src/context/commonContext'
 import { auth } from './firebase'
 import { StatusBar } from 'expo-status-bar'
-import { AuthStack } from './src/navigation/AuthStack'
-import { DiaryStack } from './src/navigation/DiaryStack'
-import BannerAd from './src/components/BannerAd'
+import { AuthStack } from 'src/navigation/AuthStack'
+import { DiaryStack } from 'src/navigation/DiaryStack'
+import BannerAd from 'src/components/BannerAd'
 
-const App: React.VFC = () => {
-  const [loggedIn, setLoggedIn] = useState(true)
+const Auth: React.VFC = () => {
+  const commonContext = CommonContext()
 
   React.useLayoutEffect(() => {
     const unSubscribe = auth.onAuthStateChanged((user: any) => {
       if (user) {
-        setLoggedIn(true)
+        commonContext.dispatch({ type: 'SET_USER_INFO', payload: user })
       } else {
-        setLoggedIn(false)
+        commonContext.dispatch({ type: 'SET_USER_INFO', payload: null })
       }
     })
     return unSubscribe
-  })
+  }, [])
 
+  return commonContext.state.userInfo ? <DiaryStack /> : <AuthStack />
+}
+
+const App: React.VFC = () => {
   return (
     <CommonProvider>
-      <NavigationContainer>
-        <NavigationContainer independent>{loggedIn ? <DiaryStack /> : <AuthStack />}</NavigationContainer>
+      <NavigationContainer independent>
+        <Auth />
       </NavigationContainer>
       <BannerAd />
       <StatusBar style="auto" />

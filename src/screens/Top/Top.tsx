@@ -1,5 +1,5 @@
 import React from 'react'
-import { View, Text } from 'react-native'
+import { View } from 'react-native'
 import { StackNavigationProp } from '@react-navigation/stack'
 import { styles } from '../../styles/common'
 import Button from '../../components/Buttons/Button'
@@ -21,6 +21,7 @@ const Login: React.FC<Props> = ({ navigation }) => {
         label="LOGIN"
         colorType="base_red"
         iconType="chevron-right"
+        width={150}
       />
       <View style={{ height: 20 }}></View>
       <Button
@@ -28,6 +29,7 @@ const Login: React.FC<Props> = ({ navigation }) => {
         label="SIGN UP"
         colorType="base_blue"
         iconType="user-plus"
+        width={150}
       />
     </View>
   )

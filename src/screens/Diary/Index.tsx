@@ -7,7 +7,6 @@ import QuestionModal from '../../components/Modal/QuestionModal'
 import { DiaryType } from '../../types/diary'
 import Spinner from '../../components/Spinner'
 import { DiaryStackParamList } from '../../navigation/DiaryStack'
-import dayjs from 'dayjs'
 
 export type DiaryScreenNavigationProp = StackNavigationProp<DiaryStackParamList, 'Diary'>
 

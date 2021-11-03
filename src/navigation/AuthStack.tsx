@@ -1,10 +1,10 @@
 // src/navigations/AuthStack.js
 import * as React from 'react'
 import { createStackNavigator, StackNavigationProp } from '@react-navigation/stack'
-import Login from '../screens/Top/Login'
-import SignUp from '../screens/Top/SignUp'
-import Top from '../screens/Top/Top'
-import Logo from '../components/Logo'
+import Login from 'src/screens/Top/Login'
+import SignUp from 'src/screens/Top/SignUp'
+import Top from 'src/screens/Top/Top'
+import Logo from 'src/components/Logo'
 
 export type AuthStackParamList = {
   Top: undefined

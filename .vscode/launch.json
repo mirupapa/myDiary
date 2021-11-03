@@ -1,0 +1,12 @@
+{
+  "version": "0.2.0",
+  "configurations": [
+    {
+      "name": "debug ios",
+      "cwd": "${workspaceFolder}",
+      "type": "reactnative",
+      "request": "attach",
+      "platform": "ios"
+    }
+  ]
+}

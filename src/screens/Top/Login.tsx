@@ -1,13 +1,13 @@
 import { StatusBar } from 'expo-status-bar'
 import React from 'react'
-import { View } from 'react-native'
+import { View, Text } from 'react-native'
 import { StackNavigationProp } from '@react-navigation/stack'
-import useLogin from '../../hooks/useLogin'
-import { styles } from '../../styles/common'
-import Input from '../../components/Inputs/Input'
-import Button from '../../components/Buttons/Button'
-import Spinner from '../../components/Spinner'
-import { AuthStackParamList } from '../../navigation/AuthStack'
+import useLogin from 'src/hooks/useLogin'
+import { styles } from 'src/styles/common'
+import Input from 'src/components/Inputs/Input'
+import Button from 'src/components/Buttons/Button'
+import Spinner from 'src/components/Spinner'
+import { AuthStackParamList } from 'src/navigation/AuthStack'
 
 export type LoginScreenNavigationProp = StackNavigationProp<AuthStackParamList, 'Login'>
 
@@ -16,7 +16,7 @@ type Props = {
 }
 
 const Login: React.FC<Props> = ({ navigation }) => {
-  const { state, handlers } = useLogin(navigation)
+  const { state, handlers } = useLogin()
 
   return (
     <View style={styles.container}>
@@ -44,8 +44,11 @@ const Login: React.FC<Props> = ({ navigation }) => {
           label="Login"
           colorType="base_red"
           isDisabled={state.isDisabled}
+          width={120}
+          paddingLeft={30}
         />
       </View>
+      <Text style={{ marginTop: 20 }}>please enter your email and password</Text>
       <Spinner />
     </View>
   )

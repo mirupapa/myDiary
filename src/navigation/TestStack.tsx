@@ -9,33 +9,33 @@ import DiaryCreate from '../screens/Diary/Create'
 import DiaryDetail from '../screens/Diary/Detail'
 import DiaryEdit from '../screens/Diary/Edit'
 import Diary from '../screens/Diary/Index'
+import Test from 'src/screens/Diary/Test'
 
-export type DiaryStackParamList = {
+export type TestStackParamList = {
   Diary: undefined
-  Create: undefined
-  Detail: { diary: DiaryType }
-  Edit: { diary: DiaryType }
+  // Create: undefined
+  // Detail: { diary: DiaryType }
+  // Edit: { diary: DiaryType }
 }
 
-export type DiaryStackParam = StackNavigationProp<DiaryStackParamList>
+export type TestStackParam = StackNavigationProp<TestStackParamList>
 
 const Stack = createStackNavigator()
 
-export const DiaryStack = () => {
+export const TestStack = () => {
   return (
-    <Stack.Navigator initialRouteName="Diary">
+    <Stack.Navigator initialRouteName="Test">
       <Stack.Screen
-        name="Diary"
-        component={Diary}
+        name="Test"
+        component={Test}
         options={{
-          headerLeft: () => <Search />,
           headerRight: () => <Menu />,
           headerTitle: () => <Logo />,
         }}
       />
-      <Stack.Screen
+      {/* <Stack.Screen
         name="Create"
-        component={DiaryCreate} //DiaryCreate
+        component={DiaryCreate}
         options={{
           headerRight: () => <Menu />,
           headerTitle: () => <Logo />,
@@ -56,7 +56,7 @@ export const DiaryStack = () => {
           headerRight: () => <Menu />,
           headerTitle: () => <Logo />,
         }}
-      />
+      /> */}
     </Stack.Navigator>
   )
 }

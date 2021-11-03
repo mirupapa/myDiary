@@ -1,8 +1,11 @@
+import { useIsFocused } from '@react-navigation/core'
 import React, { LegacyRef, useRef, useState } from 'react'
 import { Text, View, StyleSheet, Modal } from 'react-native'
 import { Calendar } from 'react-native-calendars'
 import { Icon } from 'react-native-elements'
-import Overlay from 'react-native-modal-overlay'
+// import Overlay from 'react-native-modal-overlay'
+
+import { Overlay } from 'react-native-elements'
 
 type Props = {
   label?: string
@@ -85,24 +88,11 @@ const InputCalendar: React.FC<Props> = ({
         <Icon name="calendar-day" type="font-awesome-5" style={styles.calendarIcon} />
       </View>
       <Text style={styles.errText}>{errMessage}</Text>
-      <Overlay
-        visible={isView}
-        onClose={() => setIsView(false)}
-        closeOnTouchOutside
-        containerStyle={styles.overlayContainer}
-        childrenWrapperStyle={styles.overlayChildren}>
+      <Overlay isVisible={isView} onBackdropPress={() => setIsView(false)}>
         <View style={styles.modalCalendarContainer}>
           <Text style={styles.modalCalenderTitle}>Please Select Day</Text>
           <Calendar
             style={styles.modalCalendar}
-            current={value ? new Date(value) : new Date()}
-            renderArrow={(direction: 'left' | 'right') => {
-              if (direction === 'left') {
-                return <Icon type="FontAwesome5" name="arrow-left" style={styles.arrow} />
-              } else {
-                return <Icon type="FontAwesome5" name="arrow-right" style={styles.arrow} />
-              }
-            }}
             theme={{
               todayTextColor: '#36C1A7',
             }}

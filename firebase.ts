@@ -1,4 +1,4 @@
-import * as firebase from 'firebase'
+import * as firebase from 'firebase/app'
 import 'firebase/auth'
 import 'firebase/firestore'
 import {
@@ -19,12 +19,6 @@ const firebaseConfig = {
   messagingSenderId: FIREBASE_SENDER_ID,
   appId: FIREBASE_APP_ID,
 }
-
-// export const firebaseLoad = () => {
-//   if (firebase.apps.length === 0) {
-//     firebase.initializeApp(firebaseConfig)
-//   }
-// }
 
 let app
 if (firebase.apps.length === 0) {
