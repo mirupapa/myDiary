@@ -6,6 +6,7 @@ export type State = {
   errorMessage: string
   searchWord: string
   userInfo: firebase.User | null
+  isViewKeyboard: boolean
 }
 
 export const initialState: State = {
@@ -14,6 +15,7 @@ export const initialState: State = {
   errorMessage: '',
   searchWord: '',
   userInfo: null,
+  isViewKeyboard: false,
 }
 
 export type Action =
@@ -22,6 +24,7 @@ export type Action =
   | { type: 'UPDATE_ERROR_MESSAGE'; payload: string }
   | { type: 'UPDATE_SEARCH_WORD'; payload: string }
   | { type: 'SET_USER_INFO'; payload: firebase.User | null }
+  | { type: 'IS_VIEW_KEYBOARD'; payload: boolean }
 
 export const loginReducer = (state: State, action: Action) => {
   switch (action.type) {
@@ -52,6 +55,12 @@ export const loginReducer = (state: State, action: Action) => {
       return {
         ...state,
         userInfo: action.payload,
+      }
+    }
+    case 'IS_VIEW_KEYBOARD': {
+      return {
+        ...state,
+        isViewKeyboard: action.payload,
       }
     }
     default: {
