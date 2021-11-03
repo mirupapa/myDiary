@@ -1,10 +1,11 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import KeyboardSpacer from 'react-native-keyboard-spacer'
 import { TouchableWithoutFeedback, Keyboard, View, StyleSheet } from 'react-native'
 import InputCalendar from './Inputs/InputCalendar'
 import Input from './Inputs/Input'
 import Button from './Buttons/Button'
 import QuestionModal from './Modal/QuestionModal'
+import { CommonContext } from 'src/context/commonContext'
 
 type Props = {
   date: string
@@ -42,6 +43,21 @@ const Editor: React.FC<Props> = (props) => {
     },
   })
   const { changeModalView } = props
+  const commonContext = CommonContext()
+
+  useEffect(() => {
+    const showSubscription = Keyboard.addListener('keyboardWillShow', () =>
+      commonContext.dispatch({ type: 'IS_VIEW_KEYBOARD', payload: true }),
+    )
+    const hideSubscription = Keyboard.addListener('keyboardWillHide', () =>
+      commonContext.dispatch({ type: 'IS_VIEW_KEYBOARD', payload: false }),
+    )
+
+    return () => {
+      showSubscription.remove()
+      hideSubscription.remove()
+    }
+  }, [])
 
   return (
     <View style={styles.container}>
@@ -69,36 +85,40 @@ const Editor: React.FC<Props> = (props) => {
               isMultiline
               height="70%"
               readOnly={props.isReadOnly}
+              onSubmit={Keyboard.dismiss}
             />
-            <View style={styles.buttonContainer}>
-              {props.onSubmit && (
-                <Button
-                  label="SAVE"
-                  onPress={props.onSubmit}
-                  colorType="base_green"
-                  isDisabled={props.isDisabled}
-                  paddingLeft={30}
-                />
-              )}
-              {props.isReadOnly && changeModalView && (
-                <View style={{ display: 'flex', flexDirection: 'row', justifyContent: 'space-between', width: '100%' }}>
+            {!commonContext.state.isViewKeyboard && (
+              <View style={styles.buttonContainer}>
+                {props.onSubmit && (
                   <Button
-                    onPress={props.onClickViewEdit}
-                    label="EDIT"
-                    colorType="base_blue"
-                    iconType="edit"
-                    width={120}
+                    label="SAVE"
+                    onPress={props.onSubmit}
+                    colorType="base_green"
+                    isDisabled={props.isDisabled}
+                    paddingLeft={30}
                   />
-                  <Button
-                    onPress={() => changeModalView(true)}
-                    label="DELETE"
-                    colorType="base_red"
-                    iconType="trash"
-                    width={140}
-                  />
-                </View>
-              )}
-            </View>
+                )}
+                {props.isReadOnly && changeModalView && (
+                  <View
+                    style={{ display: 'flex', flexDirection: 'row', justifyContent: 'space-between', width: '100%' }}>
+                    <Button
+                      onPress={props.onClickViewEdit}
+                      label="EDIT"
+                      colorType="base_blue"
+                      iconType="edit"
+                      width={120}
+                    />
+                    <Button
+                      onPress={() => changeModalView(true)}
+                      label="DELETE"
+                      colorType="base_red"
+                      iconType="trash"
+                      width={140}
+                    />
+                  </View>
+                )}
+              </View>
+            )}
           </View>
         </View>
       </TouchableWithoutFeedback>

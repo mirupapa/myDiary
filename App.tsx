@@ -6,6 +6,7 @@ import { StatusBar } from 'expo-status-bar'
 import { AuthStack } from 'src/navigation/AuthStack'
 import { DiaryStack } from 'src/navigation/DiaryStack'
 import BannerAd from 'src/components/BannerAd'
+import { View } from 'react-native'
 
 const Auth: React.VFC = () => {
   const commonContext = CommonContext()
@@ -21,7 +22,9 @@ const Auth: React.VFC = () => {
     return unSubscribe
   }, [])
 
-  return commonContext.state.userInfo ? <DiaryStack /> : <AuthStack />
+  return (
+    <View style={{ flex: 1, paddingBottom: 50 }}>{commonContext.state.userInfo ? <DiaryStack /> : <AuthStack />}</View>
+  )
 }
 
 const App: React.VFC = () => {

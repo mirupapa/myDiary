@@ -13,6 +13,8 @@ type Props = {
   onSubmit?: () => void
   readOnly?: boolean
   isFlex?: boolean
+  onFocus?: () => void
+  onBlur?: () => void
 }
 
 const Input: React.FC<Props> = ({
@@ -27,6 +29,8 @@ const Input: React.FC<Props> = ({
   onSubmit = () => undefined,
   readOnly = false,
   isFlex,
+  onFocus,
+  onBlur,
 }) => {
   const styles = StyleSheet.create({
     container: {
@@ -69,6 +73,8 @@ const Input: React.FC<Props> = ({
         multiline={isMultiline}
         editable={!readOnly}
         keyboardType={label === 'email' ? 'email-address' : 'default'}
+        onFocus={onFocus || undefined}
+        onBlur={onBlur || undefined}
       />
       <Text style={styles.errText}>{errMessage}</Text>
     </View>
