@@ -28,6 +28,7 @@ const Editor: React.FC<Props> = (props) => {
   const styles = StyleSheet.create({
     container: {
       flex: 1,
+      backgroundColor: '#fff',
     },
     whitePaper: {
       backgroundColor: '#fff',
@@ -64,8 +65,28 @@ const Editor: React.FC<Props> = (props) => {
       <TouchableWithoutFeedback onPress={Keyboard.dismiss} accessible={false}>
         <View style={styles.whitePaper}>
           <View style={{ flexDirection: 'row', justifyContent: 'flex-start', flexWrap: 'wrap' }}>
-            <View style={{ marginRight: 20, minWidth: 150 }}>
+            <View
+              style={{
+                marginRight: 20,
+                minWidth: 150,
+                display: 'flex',
+                flexDirection: 'row',
+                justifyContent: 'space-between',
+                width: '100%',
+              }}>
               <InputCalendar value={props.date} onChange={props.onChangeDate} readOnly={props.isReadOnly} />
+
+              {props.onSubmit && (
+                <View style={{ height: 50 }}>
+                  <Button
+                    label="SAVE"
+                    onPress={props.onSubmit}
+                    colorType="base_green"
+                    isDisabled={props.isDisabled}
+                    paddingLeft={30}
+                  />
+                </View>
+              )}
             </View>
             <View style={{ flex: 1, minWidth: 300, maxWidth: 300 }}>
               <Input
@@ -89,15 +110,6 @@ const Editor: React.FC<Props> = (props) => {
             />
             {!commonContext.state.isViewKeyboard && (
               <View style={styles.buttonContainer}>
-                {props.onSubmit && (
-                  <Button
-                    label="SAVE"
-                    onPress={props.onSubmit}
-                    colorType="base_green"
-                    isDisabled={props.isDisabled}
-                    paddingLeft={30}
-                  />
-                )}
                 {props.isReadOnly && changeModalView && (
                   <View
                     style={{ display: 'flex', flexDirection: 'row', justifyContent: 'space-between', width: '100%' }}>

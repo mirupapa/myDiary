@@ -34,19 +34,18 @@ const useLogin = (): UseLoginType => {
     })
   }
 
-  const onClickLogin = () => {
+  const onClickLogin = async () => {
     commonDispatch({ type: 'UPDATE_SPINNER_VIEW', payload: true })
-    auth
-      .signInWithEmailAndPassword(state.email, state.password)
-      .then((_user: any) => {
-        commonDispatch({ type: 'UPDATE_LOGIN', payload: true })
-      })
-      .catch((error: string | undefined) => {
-        Alert.alert('Login Error', error)
-      })
-      .finally(() => {
-        commonDispatch({ type: 'UPDATE_SPINNER_VIEW', payload: false })
-      })
+    try {
+      await auth.signInWithEmailAndPassword(state.email, state.password)
+      commonDispatch({ type: 'UPDATE_LOGIN', payload: true })
+    } catch (err) {
+      if (err instanceof Error) {
+        Alert.alert('Login Error')
+      }
+    } finally {
+      commonDispatch({ type: 'UPDATE_SPINNER_VIEW', payload: false })
+    }
   }
 
   const onClickSignUp = () => {
