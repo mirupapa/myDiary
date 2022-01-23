@@ -22,9 +22,7 @@ const Auth: React.VFC = () => {
     return unSubscribe
   }, [])
 
-  return (
-    <View style={{ flex: 1, paddingBottom: 50 }}>{commonContext.state.userInfo ? <DiaryStack /> : <AuthStack />}</View>
-  )
+  return <View style={{ flex: 1 }}>{commonContext.state.userInfo ? <DiaryStack /> : <AuthStack />}</View>
 }
 
 const App: React.VFC = () => {

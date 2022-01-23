@@ -100,7 +100,7 @@ const useDiary = (): UseType => {
 
   useEffect(() => {
     ;(async () => {
-      loadList(state.diaries.length > 0 ? state.diaries.length : 20)
+      loadList()
     })()
   }, [isFocused, commonContext.state.searchWord])
 

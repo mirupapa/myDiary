@@ -50,7 +50,7 @@ const useCreate = (navigation: navigationType): UseType => {
     try {
       if (commonContext.state.userInfo) {
         var uid = commonContext.state.userInfo.uid
-        const id = formatDate(new Date(), 'YYMMDDHHmmss') + uid.substring(0, 4)
+        const id = formatDate(new Date(), 'YYYYMMDDHHmmss') + uid.substring(0, 4)
         const date = state.date.replaceAll('-', '/') + ' 00:00:00'
         await db
           .collection('diary')
