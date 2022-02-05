@@ -3,7 +3,7 @@
     "name": "myDiary",
     "slug": "MyDiary",
     "owner": "mirupapa",
-    "version": "0.0.3",
+    "version": "0.0.4",
     "orientation": "portrait",
     "icon": "./assets/icon.png",
     "splash": {
@@ -21,10 +21,11 @@
         "googleMobileAdsAppId": "ca-app-pub-1644718158559488~6238198923"
       },
       "bundleIdentifier": "com.mirupapa.myDiary",
-      "buildNumber": "0.0.1"
+      "buildNumber": "0.0.4"
     },
     "android": {
       "package": "com.mirupapa.myDiary",
+      "versionCode": "0.0.4",
       "adaptiveIcon": {
         "foregroundImage": "./assets/adaptive-icon.png",
         "backgroundColor": "#FFFFFF"

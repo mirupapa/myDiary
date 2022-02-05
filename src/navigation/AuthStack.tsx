@@ -7,11 +7,13 @@ import Top from 'src/screens/Top/Top'
 import Logo from 'src/components/Logo'
 import Constants from 'expo-constants'
 import { View, Text } from 'react-native'
+import ResetPass from 'src/screens/Top/ResetPass'
 
 export type AuthStackParamList = {
   Top: undefined
   Login: undefined
   SignUp: undefined
+  ResetPass: undefined
 }
 
 export type AuthStackParams = StackNavigationProp<AuthStackParamList>
@@ -35,6 +37,7 @@ export const AuthStack = () => {
       />
       <Stack.Screen name="Login" component={Login} options={{ headerTitle: () => <Logo /> }} />
       <Stack.Screen name="SignUp" component={SignUp} options={{ headerTitle: () => <Logo /> }} />
+      <Stack.Screen name="ResetPass" component={ResetPass} options={{ headerTitle: () => <Logo /> }} />
     </Stack.Navigator>
   )
 }
