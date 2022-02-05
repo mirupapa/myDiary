@@ -2,7 +2,7 @@ import React from 'react'
 import { View, Text, TextInput, StyleSheet } from 'react-native'
 
 type Props = {
-  label: string
+  label?: string
   value: string
   errMessage?: string
   isPassword?: boolean
@@ -63,7 +63,7 @@ const Input: React.FC<Props> = ({
 
   return (
     <View style={styles.container}>
-      <Text style={styles.topLabel}>{label}</Text>
+      <Text style={{ ...styles.topLabel, display: label ? 'flex' : 'none' }}>{label}</Text>
       <TextInput
         style={styles.textInput}
         onChange={(event) => onChange(event.nativeEvent.text)}

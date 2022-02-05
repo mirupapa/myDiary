@@ -8,9 +8,6 @@
     "eject": "expo eject",
     "lint": "eslint 'src/**/*.{ts,tsx,js,jsx}'",
     "format": "prettier --write --loglevel=warn 'src/**/*.{js,jsx,ts,tsx,gql,graphql,json}'",
-    "release-channel": "echo v$(semver-extract --pjson --minor -x)",
-    "increment-build": "react-native-version -b --skip-tag",
-    "postversion": "react-native-version",
     "preinstall": "typesync || :"
   },
   "dependencies": {

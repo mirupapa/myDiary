@@ -9,7 +9,7 @@ export const validator = (validate: validateType, value: valueType) => {
   try {
     validate.validateSync(value)
   } catch (err) {
-    message = err.message
+    message = err instanceof Error ? err.message : 'Error'
   }
   return message
 }

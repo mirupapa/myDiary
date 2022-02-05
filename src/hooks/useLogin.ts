@@ -3,6 +3,7 @@ import { Alert } from 'react-native'
 import { auth } from 'src/../firebase'
 import { CommonContext } from 'src/context/commonContext'
 import { initialState, reducer, State } from 'src/reducers/loginReducer'
+import { ResetPassNavigationProp } from 'src/screens/Top/ResetPass'
 import { SignUpNavigationProp } from 'src/screens/Top/SignUp'
 
 export type HandlersType = {

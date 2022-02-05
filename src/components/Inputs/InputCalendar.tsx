@@ -85,7 +85,7 @@ const InputCalendar: React.FC<Props> = ({
       <Text style={styles.topLabel}>{label}</Text>
       <View style={styles.inputCalendarView} onTouchStart={() => !readOnly && setIsView(true)}>
         <Text style={styles.inputCalendarText}>{value.replaceAll('-', '/')}</Text>
-        <Icon name="calendar-day" type="font-awesome-5" style={styles.calendarIcon} />
+        <Icon name="calendar-day" type="font-awesome-5" style={styles.calendarIcon} tvParallaxProperties={undefined} />
       </View>
       <Text style={styles.errText}>{errMessage}</Text>
       <Overlay isVisible={isView} onBackdropPress={() => setIsView(false)}>
