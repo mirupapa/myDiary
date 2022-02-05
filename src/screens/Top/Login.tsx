@@ -6,9 +6,17 @@ import { styles } from 'src/styles/common'
 import Input from 'src/components/Inputs/Input'
 import Button from 'src/components/Buttons/Button'
 import Spinner from 'src/components/Spinner'
+import { AuthStackParamList } from 'src/navigation/AuthStack'
+import { StackNavigationProp } from '@react-navigation/stack'
 
-const Login: React.FC = () => {
-  const { state, handlers } = useLogin()
+export type LoginNavigationProp = StackNavigationProp<AuthStackParamList, 'Login'>
+
+type Props = {
+  navigation: LoginNavigationProp
+}
+
+const Login: React.FC<Props> = ({ navigation }) => {
+  const { state, handlers } = useLogin(navigation)
 
   return (
     <View style={styles.container}>

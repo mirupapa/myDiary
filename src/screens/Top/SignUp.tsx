@@ -9,7 +9,7 @@ import Input from 'src/components/Inputs/Input'
 import Button from 'src/components/Buttons/Button'
 import { AuthStackParamList } from 'src/navigation/AuthStack'
 
-export type SignUpNavigationProp = StackNavigationProp<AuthStackParamList, 'Top'>
+export type SignUpNavigationProp = StackNavigationProp<AuthStackParamList, 'SignUp'>
 
 type Props = {
   navigation: SignUpNavigationProp

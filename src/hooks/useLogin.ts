@@ -3,6 +3,7 @@ import { Alert } from 'react-native'
 import { auth } from 'src/../firebase'
 import { CommonContext } from 'src/context/commonContext'
 import { initialState, reducer, State } from 'src/reducers/loginReducer'
+import { LoginNavigationProp } from 'src/screens/Top/Login'
 import { SignUpNavigationProp } from 'src/screens/Top/SignUp'
 
 export type HandlersType = {
@@ -17,7 +18,7 @@ export type UseLoginType = {
   handlers: HandlersType
 }
 
-const useLogin = (navigation?: SignUpNavigationProp): UseLoginType => {
+const useLogin = (navigation?: SignUpNavigationProp | LoginNavigationProp): UseLoginType => {
   const [state, dispatch] = useReducer(reducer, initialState)
   const { dispatch: commonDispatch } = CommonContext()
 
@@ -41,6 +42,10 @@ const useLogin = (navigation?: SignUpNavigationProp): UseLoginType => {
       await auth.signInWithEmailAndPassword(state.email, state.password)
       if (auth.currentUser && auth.currentUser.emailVerified) {
         commonDispatch({ type: 'SET_USER_INFO', payload: auth.currentUser })
+      } else {
+        await auth.currentUser?.sendEmailVerification()
+        Alert.alert('まだメールアドレスの確認が取れてません。登録されたメールアドレスに、確認用リンクを送信しました。')
+        navigation?.navigate('Top')
       }
     } catch (err) {
       if (err instanceof Error) {
