@@ -1,15 +1,21 @@
 export type State = {
   isMenuView: boolean
-  isModalView: boolean
+  modalView: {
+    isView: boolean
+    onPress: () => void
+    onClose: () => void
+    message: string
+  } | null
 }
 
 export type Action =
   | { type: 'UPDATE_IS_MENU_VIEW'; payload: boolean }
-  | { type: 'UPDATE_IS_MODAL_VIEW'; payload: boolean }
+  | { type: 'SET_MODAL_VIEW'; payload: State['modalView'] }
+  | { type: 'CLOSE_MODAL_VIEW' }
 
 export const initialState: State = {
   isMenuView: false,
-  isModalView: false,
+  modalView: null,
 }
 
 export const reducer = (state: State, action: Action): State => {
@@ -20,11 +26,20 @@ export const reducer = (state: State, action: Action): State => {
         isMenuView: action.payload,
       }
     }
-    case 'UPDATE_IS_MODAL_VIEW': {
+    case 'SET_MODAL_VIEW': {
       return {
         ...state,
-        isModalView: action.payload,
+        modalView: action.payload,
       }
+    }
+    case 'CLOSE_MODAL_VIEW': {
+      return {
+        ...state,
+        modalView: null,
+      }
+    }
+    default: {
+      throw new Error()
     }
   }
 }
