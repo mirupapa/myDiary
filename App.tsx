@@ -12,8 +12,8 @@ const Auth: React.VFC = () => {
   const commonContext = CommonContext()
 
   React.useLayoutEffect(() => {
-    const unSubscribe = auth.onAuthStateChanged((user: any) => {
-      if (user) {
+    const unSubscribe = auth.onAuthStateChanged((user) => {
+      if (user && user.emailVerified) {
         commonContext.dispatch({ type: 'SET_USER_INFO', payload: user })
       } else {
         commonContext.dispatch({ type: 'SET_USER_INFO', payload: null })

@@ -1,7 +1,6 @@
 import React, { createContext, Dispatch, useContext, useReducer } from 'react'
 
 export type State = {
-  isLogin: boolean
   isSpinnerView: boolean
   errorMessage: string
   searchWord: string
@@ -10,7 +9,6 @@ export type State = {
 }
 
 export const initialState: State = {
-  isLogin: false,
   isSpinnerView: false,
   errorMessage: '',
   searchWord: '',
@@ -19,7 +17,6 @@ export const initialState: State = {
 }
 
 export type Action =
-  | { type: 'UPDATE_LOGIN'; payload: boolean }
   | { type: 'UPDATE_SPINNER_VIEW'; payload: boolean }
   | { type: 'UPDATE_ERROR_MESSAGE'; payload: string }
   | { type: 'UPDATE_SEARCH_WORD'; payload: string }
@@ -28,12 +25,6 @@ export type Action =
 
 export const loginReducer = (state: State, action: Action) => {
   switch (action.type) {
-    case 'UPDATE_LOGIN':
-      return {
-        ...state,
-        isLogin: action.payload,
-        searchWord: '',
-      }
     case 'UPDATE_SPINNER_VIEW':
       return {
         ...state,

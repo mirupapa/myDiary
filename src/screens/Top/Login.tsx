@@ -1,21 +1,13 @@
 import { StatusBar } from 'expo-status-bar'
 import React from 'react'
 import { View, Text } from 'react-native'
-import { StackNavigationProp } from '@react-navigation/stack'
 import useLogin from 'src/hooks/useLogin'
 import { styles } from 'src/styles/common'
 import Input from 'src/components/Inputs/Input'
 import Button from 'src/components/Buttons/Button'
 import Spinner from 'src/components/Spinner'
-import { AuthStackParamList } from 'src/navigation/AuthStack'
 
-export type LoginScreenNavigationProp = StackNavigationProp<AuthStackParamList, 'Login'>
-
-type Props = {
-  navigation: LoginScreenNavigationProp
-}
-
-const Login: React.FC<Props> = ({ navigation }) => {
+const Login: React.FC = () => {
   const { state, handlers } = useLogin()
 
   return (

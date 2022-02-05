@@ -92,6 +92,7 @@ const Diary: React.FC<Props> = ({ navigation }) => {
             color="#f50"
             style={{ marginRight: 10 }}
             onPress={() => navigation.navigate('Edit', { diary })}
+            tvParallaxProperties={undefined}
           />
           <Icon
             name="trash"
@@ -101,6 +102,7 @@ const Diary: React.FC<Props> = ({ navigation }) => {
               handlers.changeModalView(true)
               handlers.setTargetDiary(diary)
             }}
+            tvParallaxProperties={undefined}
           />
         </View>
       </View>
@@ -141,6 +143,7 @@ const Diary: React.FC<Props> = ({ navigation }) => {
           color="#55A200"
           size={50}
           onPress={() => navigation.navigate('Create')}
+          tvParallaxProperties={undefined}
         />
       </View>
 
