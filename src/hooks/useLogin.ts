@@ -56,7 +56,7 @@ const useLogin = (navigation?: SignUpNavigationProp): UseLoginType => {
       commonDispatch({ type: 'UPDATE_SPINNER_VIEW', payload: true })
       const result = await auth.createUserWithEmailAndPassword(state.email, state.password)
       await result.user?.sendEmailVerification()
-      Alert.alert('The email has been sent.')
+      Alert.alert('登録されたメールアドレスに、確認用リンクを送信しました。')
       navigation?.navigate('Top')
     } catch (err) {
       Alert.alert('SignUp Error')
