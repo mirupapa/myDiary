@@ -41,7 +41,12 @@ const Menu = () => {
 
   return (
     <View style={{ width: 50 }}>
-      <Icon name="ellipsis-v" onPress={() => handlers.changeMenuView(!state.isMenuView)} type="font-awesome-5" />
+      <Icon
+        name="ellipsis-v"
+        onPress={() => handlers.changeMenuView(!state.isMenuView)}
+        type="font-awesome-5"
+        tvParallaxProperties={undefined}
+      />
       {state.isModalView && (
         <QuestionModal
           isView={state.isModalView}
@@ -58,10 +63,10 @@ const Menu = () => {
             {/* <View style={styles.cancelArea} onTouchStart={() => handlers.changeMenuView(false)} /> */}
             <View style={styles.menuArea}>
               <View onTouchStart={() => handlers.changeMenuView(false)} style={styles.closeButton}>
-                <Icon color="white" name="close" size={25} />
+                <Icon color="white" name="close" size={25} tvParallaxProperties={undefined} />
               </View>
               <View style={styles.menuItem} onTouchStart={() => handlers.changeModalView(true)}>
-                <Icon color="white" name="chevron-right" size={25} />
+                <Icon color="white" name="chevron-right" size={25} tvParallaxProperties={undefined} />
                 <Text style={styles.menuItemText}>LOGOUT</Text>
               </View>
             </View>

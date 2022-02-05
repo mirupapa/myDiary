@@ -1,5 +1,5 @@
 import React from 'react'
-import { View } from 'react-native'
+import { View, Text } from 'react-native'
 import { StackNavigationProp } from '@react-navigation/stack'
 import { styles } from '../../styles/common'
 import Button from '../../components/Buttons/Button'
@@ -31,6 +31,10 @@ const Login: React.FC<Props> = ({ navigation }) => {
         iconType="user-plus"
         width={150}
       />
+      <View style={{ height: 40 }}></View>
+      <Text
+        style={{ color: '#343490', textDecorationLine: 'underline' }}
+        onPress={() => navigation.navigate('ResetPass')}>{`> パスワードを忘れた場合はこちら`}</Text>
     </View>
   )
 }

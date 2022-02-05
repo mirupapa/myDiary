@@ -33,7 +33,6 @@ const useMenu = (): UseLoginType => {
   }
 
   const logout = () => {
-    commonDispatch({ type: 'UPDATE_LOGIN', payload: false })
     auth
       .signOut()
       .then(() => {
