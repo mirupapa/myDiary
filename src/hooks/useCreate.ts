@@ -19,9 +19,7 @@ export type UseType = {
   handlers: HandlersType
 }
 
-type navigationType = CreateScreenNavigationProp
-
-const useCreate = (navigation: navigationType): UseType => {
+const useCreate = (navigation: CreateScreenNavigationProp): UseType => {
   const [state, dispatch] = useReducer(reducer, initialState)
   const commonContext = CommonContext()
 

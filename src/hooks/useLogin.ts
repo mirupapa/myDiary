@@ -3,6 +3,7 @@ import { Alert } from 'react-native'
 import { auth } from 'src/../firebase'
 import { CommonContext } from 'src/context/commonContext'
 import { initialState, reducer, State } from 'src/reducers/loginReducer'
+import { SignUpNavigationProp } from 'src/screens/Top/SignUp'
 
 export type HandlersType = {
   onClickLogin: () => void
@@ -16,7 +17,7 @@ export type UseLoginType = {
   handlers: HandlersType
 }
 
-const useLogin = (): UseLoginType => {
+const useLogin = (navigation?: SignUpNavigationProp): UseLoginType => {
   const [state, dispatch] = useReducer(reducer, initialState)
   const { dispatch: commonDispatch } = CommonContext()
 
@@ -35,10 +36,12 @@ const useLogin = (): UseLoginType => {
   }
 
   const onClickLogin = async () => {
-    commonDispatch({ type: 'UPDATE_SPINNER_VIEW', payload: true })
     try {
+      commonDispatch({ type: 'UPDATE_SPINNER_VIEW', payload: true })
       await auth.signInWithEmailAndPassword(state.email, state.password)
-      commonDispatch({ type: 'UPDATE_LOGIN', payload: true })
+      if (auth.currentUser && auth.currentUser.emailVerified) {
+        commonDispatch({ type: 'SET_USER_INFO', payload: auth.currentUser })
+      }
     } catch (err) {
       if (err instanceof Error) {
         Alert.alert('Login Error')
@@ -48,19 +51,18 @@ const useLogin = (): UseLoginType => {
     }
   }
 
-  const onClickSignUp = () => {
-    commonDispatch({ type: 'UPDATE_SPINNER_VIEW', payload: true })
-    auth
-      .createUserWithEmailAndPassword(state.email, state.password)
-      .then((_user: any) => {
-        commonDispatch({ type: 'UPDATE_LOGIN', payload: true })
-      })
-      .catch(() => {
-        Alert.alert('SignUp Error')
-      })
-      .finally(() => {
-        commonDispatch({ type: 'UPDATE_SPINNER_VIEW', payload: false })
-      })
+  const onClickSignUp = async () => {
+    try {
+      commonDispatch({ type: 'UPDATE_SPINNER_VIEW', payload: true })
+      const result = await auth.createUserWithEmailAndPassword(state.email, state.password)
+      await result.user?.sendEmailVerification()
+      Alert.alert('The email has been sent.')
+      navigation?.navigate('Top')
+    } catch (err) {
+      Alert.alert('SignUp Error')
+    } finally {
+      commonDispatch({ type: 'UPDATE_SPINNER_VIEW', payload: false })
+    }
   }
 
   return {
