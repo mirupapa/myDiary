@@ -3,7 +3,7 @@
     "name": "myDiary",
     "slug": "MyDiary",
     "owner": "mirupapa",
-    "version": "0.0.5",
+    "version": "0.0.6",
     "orientation": "portrait",
     "icon": "./assets/icon.png",
     "splash": {
@@ -15,13 +15,16 @@
       "fallbackToCacheTimeout": 0
     },
     "assetBundlePatterns": ["**/*"],
+    "infoPlist": {
+      "NSUserTrackingUsageDescription": "This identifier will be used to deliver personalized ads to you."
+    },
     "ios": {
       "supportsTablet": true,
       "config": {
         "googleMobileAdsAppId": "ca-app-pub-1644718158559488~6238198923"
       },
       "bundleIdentifier": "com.mirupapa.myDiary",
-      "buildNumber": "0.0.5"
+      "buildNumber": "0.0.6"
     },
     "android": {
       "package": "com.mirupapa.myDiary",
