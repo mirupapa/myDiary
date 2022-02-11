@@ -20,5 +20,4 @@
       ]
     }
   },
-  "extends": "expo/tsconfig.base"
 }
