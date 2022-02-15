@@ -68,10 +68,10 @@ const useMenu = () => {
         await auth.currentUser?.delete()
         await auth.signOut()
       } else {
-        Alert.alert('Auth Error')
+        Alert.alert('認証エラー')
       }
     } catch (err) {
-      Alert.alert('System Error')
+      Alert.alert('内部エラー')
     } finally {
       commonDispatch({ type: 'UPDATE_SPINNER_VIEW', payload: false })
     }

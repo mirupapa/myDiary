@@ -64,10 +64,10 @@ const useCreate = (navigation: CreateScreenNavigationProp): UseType => {
           })
         navigation.navigate('Diary')
       } else {
-        Alert.alert('Auth Error')
+        Alert.alert('認証エラー')
       }
     } catch (err) {
-      Alert.alert('System Error')
+      Alert.alert('内部エラー')
     }
   }
 

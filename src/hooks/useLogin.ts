@@ -50,7 +50,7 @@ const useLogin = (navigation?: SignUpNavigationProp | LoginNavigationProp): UseL
       }
     } catch (err) {
       if (err instanceof Error) {
-        Alert.alert('Login Error')
+        Alert.alert('ログインエラー')
       }
     } finally {
       commonDispatch({ type: 'UPDATE_SPINNER_VIEW', payload: false })
@@ -65,7 +65,7 @@ const useLogin = (navigation?: SignUpNavigationProp | LoginNavigationProp): UseL
       Alert.alert('登録されたメールアドレスに、確認用リンクを送信しました。')
       navigation?.navigate('Top')
     } catch (err) {
-      Alert.alert('SignUp Error')
+      Alert.alert('サインアップエラー')
     } finally {
       commonDispatch({ type: 'UPDATE_SPINNER_VIEW', payload: false })
     }

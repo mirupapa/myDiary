@@ -22,7 +22,7 @@ export const initialState: State = {
 export const reducer = (state: State, action: Action): State => {
   switch (action.type) {
     case 'UPDATE_EMAIL': {
-      const validate = string().required('email is required').email('not email format')
+      const validate = string().required('emailは必須です').email('メール形式エラー')
       const err_email = validator(validate, action.payload)
       return {
         ...state,
@@ -36,7 +36,7 @@ export const reducer = (state: State, action: Action): State => {
       }
     }
     case 'UPDATE_PASSWORD': {
-      const validate = string().required('password is required')
+      const validate = string().required('password は必須です')
       const err_password = validator(validate, action.payload)
       return {
         ...state,
