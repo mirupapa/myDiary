@@ -46,17 +46,22 @@ const Search = () => {
 
   return (
     <View style={{ width: 50 }}>
-      <Icon name="search" onPress={() => handlers.changeMenuView(!state.isMenuView)} type="font-awesome-5" />
-      {!state.isModalView && (
+      <Icon
+        name="search"
+        onPress={() => handlers.changeMenuView(!state.isMenuView)}
+        type="font-awesome-5"
+        tvParallaxProperties={undefined}
+      />
+      {!state.modalView?.isView && (
         <Modal animationType="fade" transparent={true} visible={state.isMenuView}>
           <View style={styles.modalView}>
             <View style={styles.menuArea}>
               <View onTouchStart={() => handlers.changeMenuView(false)} style={styles.closeButton}>
-                <Icon color="white" name="close" size={25} />
+                <Icon color="white" name="close" size={25} tvParallaxProperties={undefined} />
               </View>
               <View style={styles.menuItem}>
                 <View style={{ flexDirection: 'row' }}>
-                  <Icon color="white" name="chevron-right" size={25} />
+                  <Icon color="white" name="chevron-right" size={25} tvParallaxProperties={undefined} />
                   <Text style={styles.menuItemText}>SEARCH</Text>
                 </View>
                 <View style={{ flexDirection: 'row' }}>
@@ -79,6 +84,7 @@ const Search = () => {
                     style={{ paddingTop: 5 }}
                     onPress={() => onClickSearch(word)}
                     type="font-awesome-5"
+                    tvParallaxProperties={undefined}
                   />
                   <Icon
                     name="times"
@@ -89,6 +95,7 @@ const Search = () => {
                       onClickSearch('')
                     }}
                     type="font-awesome-5"
+                    tvParallaxProperties={undefined}
                   />
                 </View>
               </View>

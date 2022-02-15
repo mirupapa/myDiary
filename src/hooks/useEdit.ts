@@ -57,10 +57,10 @@ const useEdit = (navigation: navigationType, diary?: DiaryType): UseLoginType =>
           .update({ title: state.title, text: state.text, date: new Date(date) })
         navigation.navigate('Diary')
       } else {
-        Alert.alert('Auth Error')
+        Alert.alert('認証エラー')
       }
     } catch (err) {
-      Alert.alert('System Error')
+      Alert.alert('内部エラー')
     }
   }
 
