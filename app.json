@@ -39,5 +39,13 @@
     "web": {
       "favicon": "./assets/favicon.png"
     }
-  }
+  },
+  "plugins": [
+    [
+      "expo-ads-admob",
+      {
+        "userTrackingPermission": "この識別子は、お客様にパーソナライズされた広告を配信するために使用されます。"
+      }
+    ]
+  ]
 }
