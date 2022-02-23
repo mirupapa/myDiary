@@ -3,7 +3,7 @@
     "name": "myDiary",
     "slug": "MyDiary",
     "owner": "mirupapa",
-    "version": "0.0.8",
+    "version": "0.0.9",
     "orientation": "portrait",
     "icon": "./assets/icon.png",
     "splash": {
@@ -21,7 +21,7 @@
         "googleMobileAdsAppId": "ca-app-pub-1644718158559488~6238198923"
       },
       "bundleIdentifier": "com.mirupapa.myDiary",
-      "buildNumber": "0.0.8",
+      "buildNumber": "0.0.9",
       "infoPlist": {
         "NSUserTrackingUsageDescription": "アプリのバグ修正および体験向上のため、ユーザー行動データを利用します。"
       }
