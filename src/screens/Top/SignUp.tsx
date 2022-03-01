@@ -26,14 +26,14 @@ const SignUp: React.FC<Props> = ({ navigation }) => {
         label="Email"
         value={state.email}
         onChange={handlers.onChangeEmail}
-        onSubmit={handlers.onClickLogin}
+        onSubmit={handlers.onClickSignUp}
       />
       <Input
         width={200}
         label="Password"
         value={state.password}
         onChange={handlers.onChangePassword}
-        onSubmit={handlers.onClickLogin}
+        onSubmit={handlers.onClickSignUp}
         isPassword
       />
       <View style={{ marginTop: 20 }}>
